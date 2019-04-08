@@ -1,55 +1,156 @@
 (function () {
   "use strict";
-  //路由功能，实现建议hash模式的路由
+  //路由功能，实现hash模式的路由
+    var $treeviewMenu = $('.app-menu');
     var _router={
-      _init:function($wrap){
+      init:function($wrap,$viewMenu){
         var that=this;
-        this._initPath=(window.location.hash).substring(1);
-        this._creatFrame($wrap,this._initPath);
+        this._query=this.routerQuery();
+        //重定向或初始化
+        this.redirect($viewMenu,this._query,$wrap);
+        //监听hash变化
         window.onhashchange=function(e){
           var _newPath=(e.newURL).substring(e.newURL.indexOf("#")+1)
-          that._taggleFrame($wrap,_newPath)
+          that.taggleFrame($wrap,_newPath)
         }
       },
-      _taggleFrame($wrap,path){
-        var _target=$wrap.find("div[data-index='"+path+"']");
+      redirect:function($viewMenu,_query,$wrap){
+          var $routerPath=[],$router=$viewMenu.find("a");
+          for(var k=0;k<$router.length;k++){
+            var _href=$router.eq(k).attr("href")
+              if(_href.match(/^\//g) && $routerPath.indexOf(_href)==-1){
+                $routerPath.push(_href)
+              }
+          }
+          if($routerPath.indexOf(_query.full)==-1){
+             window.location.hash="#"+$routerPath[0];
+             this.initMenu($routerPath[0],$viewMenu)
+          }else{
+            this.initMenu(_query.full,$viewMenu);
+            this.creatFrame($wrap,_query.full);
+          }
+          
+      },
+      initMenu:function(path,$viewMenu){
+         //阻止A标签的跳转，手动强制为hash模式
+         $viewMenu.find("a").click(function(e){
+            e.preventDefault();
+            var _href=$(this).attr("href")
+            if(_href.match(/^\//g)){
+              window.location.hash=_href;
+            }
+        });
+        var $menu=($viewMenu.find("a[href='"+path+"']")).eq(0);
+        if($menu.parents(".treeview")){
+           $menu.parents(".treeview").eq(0).children("[data-toggle='treeview']").click()
+        }
+        $menu.click();
+      },
+      routerQuery:function(){
+        var _allPath=(window.location.hash).substring(1);
+        var _allPathArr=_allPath.split("?");
+        return {
+          path:_allPathArr[0]?_allPathArr[0]:"/",
+          query:this.getSearchKey((_allPathArr[1]||"")),
+          full:_allPath
+        };
+      },
+      getSearchKey:function(argStr){
+        var argObj = {},
+        item = null,
+        value = null,
+        key = null,
+        argArr = argStr.length > 0 ? argStr.split("&") : [];
+        for (var i = 0, len = argArr.length; i < len; i++) {
+            item = argArr[i].split("=");
+            key = item[0];
+            value = item[1];
+            argObj[key] = value;
+        }
+        return argObj
+      },
+      taggleFrame($wrap,path){
+        //过滤search参数
+        var _path=path.split("?")[0]?path.split("?")[0]:path;
+        var _target=$wrap.find("div[data-index='"+_path+"']");
         $wrap.children(".tab-pane").removeClass("active");
         if(_target.length>0){
           _target.toggleClass("active")
         }else{
-          this._creatFrame($wrap,path)
+          //初始化创建
+          this.creatFrame($wrap,path)
+          
         }
       },
-      _creatFrame:function($wrap,path){
+      creatFrame:function($wrap,path){
         var _str='<div class="tab-pane active" data-index="'+path+'">';
             _str+='<iframe src="'+path+'" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe>'
             _str+='</div>';
         $wrap.append(_str)
       }
     }
-    _router._init($("#app-main-content"));
-	  var treeviewMenu = $('.app-menu');
+    
+  
+
+
 	// Toggle Sidebar
 	$('[data-toggle="sidebar"]').click(function(event) {
 		event.preventDefault();
     $('.app').toggleClass('sidenav-toggled');
     $(".app-header__logo").toggleClass('home-logo-toggled');
-	});
+  });
+  $(".app-menu .side-menu-item").click(function (e){
+　　　　//获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+　　　　$(this).addClass("active").siblings().removeClass("active");  
+       //包含二级菜单的选项展开
+       var $expand=$(e.target).parent("[data-toggle='treeview']").length>0?$(e.target).parent("[data-toggle='treeview']"):$(e.target);
+       if($expand.attr('data-toggle')==='treeview'){
+        var $parent=$expand.parent();
+        var $child=$parent.children(".treeview-menu");
+        if($parent.hasClass("is-expanded")){
+            $parent.removeClass('is-expanded');
+            $child.css("height","0px")
+        }else{
+            var _height=$child.children("li").height()*$child.children("li").length;
+            $child.css("height",(_height)+"px")
+            $parent.addClass('is-expanded');
+        }
+         
+        
+       }
+       //移除所有二级菜单的样式
+        ($(this).parent().children(".is-expanded").children(".treeview-menu").find("li")).removeClass("active");
+         $(this).siblings(".is-expanded").removeClass("is-expanded").children(".treeview-menu").css("height","0px")
+       //激活二级菜单的样式
+        if($(this).hasClass("is-expanded")){
+             $(e.target).parent("li").addClass("active");
+          }
 
+　　});
+    //侧边菜单mini模式时的交互效果
+    $(".app-menu .treeview").hover(function(){
+      if($('body').hasClass("sidenav-toggled")){
+        var $child=$(this).children(".treeview-menu");
+        var _height=$child.children("li").height()*$child.children("li").length;
+        $child.css("height",(_height)+"px")
+      }
+    },function(){
+      if($('body').hasClass("sidenav-toggled")){
+      $(this).children(".treeview-menu").css("height","0")
+      }
+    })
+//路由初始化
+_router.init($("#app-main-content"),$treeviewMenu);
 	// Activate sidebar treeview toggle
-	$("[data-toggle='treeview']").click(function(event) {
-		event.preventDefault();
-		if(!$(this).parent().hasClass('is-expanded')) {
-			treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
-		}
-		$(this).parent().toggleClass('is-expanded');
-	});
-  $("").trigger("click");
+	// $("[data-toggle='treeview']").click(function(event) {
+	// 	event.preventDefault();
+		
+	// });
 	// Set initial active toggle
-	$("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
+	// $("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
 
 	//Activate bootstrip tooltips
-  $("[data-toggle='tooltip']").tooltip();
+  // $("[data-toggle='tooltip']").tooltip();
   
-
+  $('[data-toggle="popover"]').popover();
 })();

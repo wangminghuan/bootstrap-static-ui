@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"> -->
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="keywords" content="刀锋内部后台" />
@@ -11,16 +13,23 @@
   <!--[if lte IE 8]><div style="margin-top:100px"><img style="margin:0 auto;width:200px;display:block" src="//s29.9956.cn/res/bxd365/images/error-tips.jpg" /><p style="text-align: center;">你的浏览器实在<strong>太太太太太太旧了</strong>，请升级浏览器！！<a target="_blank" href="http://rj.baidu.com/soft/detail/14744.html">立即升级</a></div><![endif]-->
   <title>Bootstrap-UI 管理后台-刀锋网络</title>
   <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+ 
 </head>
 
 <body class="app sidebar-mini rtl">
   <!-- 顶部导航菜单-->
   <header class="app-header"><a class="app-header__logo" href="#/"><span>刀锋网络</span></a>
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+    <!-- Sidebar toggle button-->
+    <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
       aria-label="Hide Sidebar"></a>
+      <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item">看板</li>
+        <li class="breadcrumb-item active">Data Table</li>
+      </ul>
     <!-- 右侧功能菜单-->
     <ul class="app-nav">
       <li class="app-search" style="display:none">
@@ -67,24 +76,45 @@
       </div>
     </div>
     <ul class="app-menu">
-        <li>
-            <a class="app-menu__item active" href="#/dashboard/index" >
+        <li class="side-menu-item">
+            <a class="app-menu__item" href="/dashboard/index?id=1" >
             <i class="app-menu__icon fa fa-dashboard"></i>
             <span class="app-menu__label">看板</span></a>
         </li>
-        <li class="treeview">
+        <li class="treeview side-menu-item">
           <a class="app-menu__item" href="javascript:;" data-toggle="treeview">
             <i class="app-menu__icon fa fa-laptop"></i>
-            <span class="app-menu__label">权限管理</span>
+            <span class="app-menu__label">表格</span>
             <i class="treeview-indicator fa fa-angle-right"></i>
           </a>
           <ul class="treeview-menu">
             <li>
-              <a class="treeview-item" href="#/auth/admin/index"><i class="icon fa"></i>管理员管理</a>
+              <a class="treeview-item" href="/table/data/index"><i class="icon fa"></i>数据表格</a>
             </li>
             <li>
-              <a class="treeview-item" href="#/auth/adminlog/index"><i
-                  class="icon fa"></i>管理员日志</a>
+              <a class="treeview-item" href="/table/basic/index"><i
+                  class="icon fa"></i>基础表格</a>
+            </li>
+          </ul>
+        </li>
+        <li class="side-menu-item">
+          <a class="app-menu__item" href="/dashboard/index" >
+          <i class="app-menu__icon fa fa-dashboard"></i>
+          <span class="app-menu__label">测试2</span></a>
+        </li>
+        <li class="treeview side-menu-item">
+          <a class="app-menu__item" href="javascript:;" data-toggle="treeview">
+            <i class="app-menu__icon fa fa-laptop"></i>
+            <span class="app-menu__label">权限管理2</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a class="treeview-item" href="/auth/admin/index"><i class="icon fa"></i>管理员管理2</a>
+            </li>
+            <li>
+              <a class="treeview-item" href="/auth/adminlog/index"><i
+                  class="icon fa"></i>管理员日志2</a>
             </li>
           </ul>
         </li>
@@ -98,12 +128,8 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="js/plugins/pace.min.js"></script>
+  <!-- <script src="js/plugins/pace.min.js"></script> -->
   <!-- Page specific javascripts-->
-  <script>
-    $('.bs-component [data-toggle="popover"]').popover();
-    $('.bs-component [data-toggle="tooltip"]').tooltip();
-  </script>
 </body>
 
 </html>
