@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../../css/main.css">
-  <link rel="stylesheet" type="text/css" href="../../css/flatpickr.min.css">
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 以下资源每个页面都需引用 --start -->
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <script src="../../js/bootstrap-jquery.min.js"></script>
+    <!-- end -->
+    <!-- 以下内容可以根据需要引用 -->
+    <!-- 图表插件 -->
+    <script src="../../js/plugins/chart.min.js"></script>
+    <!-- 上传插件 -->
+    <script src="../../js/plugins/fileinput.min.js"></script>
+    <!-- 时间选择插件 -->
+    <script src="../../js/plugins/flatpickr.min.js"></script>
 </head>
 
 <body>
@@ -34,15 +43,7 @@
             </div>
             <div class="form-group col">
                 <label for="form-end-time">结束时间：</label>
-                <input type="text" placeholder="请选择结束时间" id="form-end-time" class="form-control date-time-picker" name="s-time">
-            </div>
-            <div class="form-group col">
-                <label for="form-start-time1">开始时间：</label>
-                <input type="text" placeholder="请选择开始时间" class="form-control date-time-picker" id="form-start-time1" name="s-time">
-            </div>
-            <div class="form-group col">
-                <label for="form-end-time2">结束时间：</label>
-                <input type="text" placeholder="请选择结束时间" id="form-end-time2" class="form-control date-time-picker" name="s-time">
+                <input type="text" placeholder="请选择结束时间" id="form-end-time" class="form-control date-time-picker" name="e-time">
             </div>
             <div class="form-group col">
               <button type="submit" class="btn btn-primary">确定</button>
@@ -531,20 +532,15 @@
       </div>
     </div>
   </div>
-  <script src="../../js/jquery-3.2.1.min.js"></script>
-  <script src="../../js/popper.min.js"></script>
-  <script src="../../js/bootstrap.min.js"></script>
-  <script src="../../js/flatpickr.js"></script>
   <script>
- $('.date-time-picker').flatpickr({
-    enableTime: true,
-    dateFormat: "Y-m-d H:i",
-    defaultHour:0,
-    time_24hr: true
- });
+//以下为图标相关操作逻辑，如果不需要则可以移除
+//------------------start-----------------
+ //重置按钮
  $(".my-form-wrap .reset-btn").click(function(){
    $('.my-form-wrap')[0].reset()
  })
+
+ //表格内操作按钮相关功能
  $("#my-table-wrap").click(function(e){
    var _opetate=$(e.target).attr("data-operate");
    switch(_opetate){
@@ -572,6 +568,7 @@
       break;
    }
  })
+ //-----------------------end---------------
   </script>
 </body>
 
