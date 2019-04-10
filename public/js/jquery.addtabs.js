@@ -4,12 +4,12 @@
  * Modified by Karson
  */
 
-(function ($) {
+
     
     $.fn.addtabs = function (options) {
-      debugger;
         var obj = $(this);
         options = $.extend({
+            iframeWrap:null,
             content: '', //直接指定所有页面TABS内容
             close: true, //是否可以关闭
             monitor: 'body', //监视的区域
@@ -25,45 +25,44 @@
         }, options || {});
         var navobj = $(options.nav);
         var tabobj = $(options.tab);
-        if (history.pushState) {
-            //浏览器前进后退事件
-            $(window).on("popstate", function (e) {
-                var state = e.originalEvent.state;
-                if (state) {
-                    $("a[addtabs=" + state.id + "]", options.monitor).data("pushstate", true).trigger("click");
-                }
-            });
-        }
-        $(options.monitor).on('click', '[addtabs]', function (e) {
-            if ($(this).attr('url').indexOf("javascript:") !== 0) {
+        // if (history.pushState) {
+        //     //浏览器前进后退事件
+        //     $(window).on("popstate", function (e) {
+        //         var state = e.originalEvent.state;
+        //         if (state) {
+        //             $("a[addtabs=" + state.id + "]", options.monitor).data("pushstate", true).trigger("click");
+        //         }
+        //     });
+        // }
+        $(options.monitor).on('click', '[data-nav-id]', function (e) {
+            if ($(this).attr('href').indexOf("javascript:") !== 0) {
                 if ($(this).is("a")) {
                     e.preventDefault();
                 }
-                var id = $(this).attr('addtabs');
-                var title = $(this).attr('title') ? $(this).attr('title') : $.trim($(this).text());
-                var url = $(this).attr('url');
-                var content = options.content ? options.content : $(this).attr('content');
-                var ajax = $(this).attr('ajax') === '1' || $(this).attr('ajax') === 'true';
-                var state = ({
-                    url: url, title: title, id: id, content: content, ajax: ajax
-                });
+                var id = $(this).attr('data-nav-id');
+                var title =$(this).children("span").eq(0).text() ;
+                var url = $(this).attr('href');
+                var icon=$(this).children(".fa").attr("class");
+                var content = "";
+                var ajax = false;
 
-                document.title = title;
-                if (history.pushState && !$(this).data("pushstate")) {
-                    var pushurl = url.indexOf("ref=addtabs") === -1 ? (url + (url.indexOf("?") > -1 ? "&" : "?") + "ref=addtabs") : url;
-                    try {
-                        window.history.pushState(state, title, pushurl);
-                    } catch (e) {
+                // document.title = title;
+                // if (history.pushState && !$(this).data("pushstate")) {
+                //     var pushurl = url.indexOf("ref=addtabs") === -1 ? (url + (url.indexOf("?") > -1 ? "&" : "?") + "ref=addtabs") : url;
+                //     try {
+                //         window.history.pushState(state, title, pushurl);
+                //     } catch (e) {
 
-                    }
-                }
-                $(this).data("pushstate", null);
+                //     }
+                // }
+                // $(this).data("pushstate", null);
                 _add.call(this, {
                     id: id,
-                    title: $(this).attr('title') ? $(this).attr('title') : $(this).html(),
+                    title: title,
                     content: content,
                     url: url,
-                    ajax: ajax
+                    ajax: ajax,
+                    icon:icon
                 });
             }
         });
@@ -77,19 +76,18 @@
             $(this).find(".close-tab").trigger("click");
         });
         navobj.on('click', 'li[role=presentation]', function () {
-            $("a[addtabs=" + $("a", this).attr("node-id") + "]").trigger("click");
+            $("a[data-nav-id=" + $("a", this).attr("node-id") + "]").trigger("click");
         });
-
+        var _calWidth=function(){
+            var siblingsWidth = 0;
+            navobj.siblings().each(function () {
+                siblingsWidth += $(this).outerWidth();
+            });
+            navobj.width(navobj.parent().width() - siblingsWidth-50);
+        };
+        _calWidth();
         $(window).resize(function () {
-            if (typeof options.nav === 'object') {
-                var siblingsWidth = 0;
-                navobj.siblings().each(function () {
-                    siblingsWidth += $(this).outerWidth();
-                });
-                navobj.width(navobj.parent().width() - siblingsWidth);
-            } else {
-                $("#nav").width($("#header").find("> .navbar").width() - $(".sidebar-toggle").outerWidth() - $(".navbar-custom-menu").outerWidth() - 20);
-            }
+            _calWidth();
             _drop();
         });
 
@@ -99,7 +97,7 @@
             tabid = 'tab_' + opts.id;
             conid = 'con_' + opts.id;
             url = opts.url;
-            url += (opts.url.indexOf("?") > -1 ? "&addtabs=1" : "?addtabs=1");
+            // url += (opts.url.indexOf("?") > -1 ? "&addtabs=1" : "?addtabs=1");
 
             var tabitem = $('#' + tabid, navobj);
             var conitem = $('#' + conid, tabobj);
@@ -108,56 +106,70 @@
             tabobj.find("[role='tabpanel']").removeClass('active');
 
             //如果TAB不存在，创建一个新的TAB
-            if (tabitem.size() === 0) {
+            if (tabitem.length === 0) {
                 //创建新TAB的title
-                tabitem = $('<li role="presentation" id="' + tabid + '"><a href="#' + conid + '" node-id="' + opts.id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + opts.title + '</a></li>');
+                tabitem = $('<li role="presentation" id="' + tabid + '"><a href="#' + conid + '" node-id="' + opts.id + '" aria-controls="' + id + '" role="tab" data-toggle="tab"><i class="'+opts.icon+'"></i><span>' + opts.title + '</span></a></li>');
                 //是否允许关闭
-                if (options.close && $("li", navobj).size() > 0) {
+                if (options.close && $("li", navobj).length > 0) {
                     tabitem.append(' <i class="close-tab fa fa-remove"></i>');
                 }
-                if (conitem.size() === 0) {
+                if (conitem.length === 0) {
                     //创建新TAB的内容
-                    conitem = $('<div role="tabpanel" class="tab-pane" id="' + conid + '"></div>');
+                    // conitem = $('<div role="tabpanel" class="tab-pane" id="' + conid + '"></div>');
                     //是否指定TAB内容
-                    if (opts.content) {
-                        conitem.append(opts.content);
-                    } else if (options.iframeUse && !opts.ajax) {//没有内容，使用IFRAME打开链接
-                        var height = options.iframeHeight;
-                        conitem.append('<iframe src="' + url + '" width="100%" height="' + height + '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe></div>');
-                    } else {
-                        $.get(url, function (data) {
-                            conitem.append(data);
-                        });
+                    // if (opts.content) {
+                    //     conitem.append(opts.content);
+                    // } else if (options.iframeUse && !opts.ajax) {//没有内容，使用IFRAME打开链接
+                    //     var height = options.iframeHeight;
+                    //     conitem.append('<iframe src="' + url + '" width="100%" height="' + height + '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe></div>');
+                    // } else {
+                    //     $.get(url, function (data) {
+                    //         conitem.append(data);
+                    //     });
+                    // }
+                    if(options.iframeWrap){
+                        $("[role='tabpanel']").removeClass("show");
+                        var _str = '<div role="tabpanel" class="tab-pane show" id="' + conid + '" data-ifr-id="' + opts.id + '">';
+                            _str += '<iframe  src="' + opts.url + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe>'
+                            _str += '</div>';
+                            options.iframeWrap.append(_str)
                     }
                     tabobj.append(conitem);
                 }
                 //加入TABS
-                if ($('.tabdrop li', navobj).size() > 0) {
+                if ($('.tabdrop li', navobj).length > 0) {
                     $('.tabdrop ul', navobj).append(tabitem);
                 } else {
                     navobj.append(tabitem);
                 }
             } else {
+                $("[role='tabpanel']").removeClass("show");
+                $("#" + conid).addClass("show")
                 //强制刷新iframe
-                if (options.iframeForceRefresh) {
-                    $("#" + conid + " iframe").attr('src', function (i, val) {
-                        return val;
-                    });
-                } else if (options.iframeForceRefreshTable) {
-                    try {
-                        //检测iframe中是否存在刷新按钮
-                        if ($("#" + conid + " iframe").contents().find(".btn-refresh").size() > 0) {
-                            $("#" + conid + " iframe")[0].contentWindow.$(".btn-refresh").trigger("click");
-                        }
-                    } catch (e) {
-
-                    }
+                if(options.iframeForceRefresh){
+                    $("#" + conid + " iframe")[0].contentWindow.location.reload(true)
                 }
+               
+                
+                // if (options.iframeForceRefresh) {
+                //     $("#" + conid + " iframe").attr('src', function (i, val) {
+                //         return val;
+                //     });
+                // } else if (options.iframeForceRefreshTable) {
+                //     try {
+                //         //检测iframe中是否存在刷新按钮
+                //         if ($("#" + conid + " iframe").contents().find(".btn-refresh").length > 0) {
+                //             $("#" + conid + " iframe")[0].contentWindow.$(".btn-refresh").trigger("click");
+                //         }
+                //     } catch (e) {
+
+                //     }
+                // }
             }
-            localStorage.setItem("addtabs", $(this).prop('outerHTML'));
+            // localStorage.setItem("addtabs", $(this).prop('outerHTML'));
             //激活TAB
             tabitem.addClass('active');
-            conitem.addClass("active");
+            // conitem.addClass("active");
             _drop();
         };
 
@@ -170,9 +182,9 @@
             if (obj.find("li.active").not('.tabdrop').attr('id') === tabid) {
                 var prev = tabitem.prev().not(".tabdrop");
                 var next = tabitem.next().not(".tabdrop");
-                if (prev.size() > 0) {
+                if (prev.length > 0) {
                     prev.find('a').trigger("click");
-                } else if (next.size() > 0) {
+                } else if (next.length > 0) {
                     next.find('a').trigger("click");
                 } else {
                     $(">li:not(.tabdrop):last > a", navobj).trigger('click');
@@ -193,9 +205,9 @@
     $.fn.refreshAddtabs = function () {
         var navobj = $(this);
         var dropdown = $(".tabdrop", navobj);
-        if (dropdown.size() === 0) {
+        if (dropdown.length === 0) {
             dropdown = $('<li class="dropdown pull-right hide tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">' +
-                '<i class="glyphicon glyphicon-align-justify"></i>' +
+                '<i class="fa fa-align-justify"></i>' +
                 ' <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>');
             dropdown.prependTo(navobj);
         }
@@ -236,4 +248,3 @@
         }
 
     };
-})(jQuery);
