@@ -10,9 +10,12 @@
   <meta name="description" content="刀锋内部后台" />
   <title>Bootstrap-UI 管理后台-刀锋网络</title>
   <!-- 以下资源每个页面都需引用 --start -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/allSkin.min.css">
+  <link rel="stylesheet" type="text/css" href="css/adminLTE.min.css">
   <script src="js/bootstrap-jquery.min.js"></script>
+  <script src="js/jquery.addtabs.js"></script>
   <!-- end -->
   <!-- 以下内容可以根据需要引用 -->
   <!-- 图表插件 -->
@@ -21,290 +24,400 @@
   <script src="js/plugins/fileinput.min.js"></script>
   <!-- 时间选择插件 -->
   <script src="js/plugins/flatpickr.min.js"></script>
+  <!-- <script src="js/addtabs.js"></script> -->
 </head>
 
-<body class="app sidebar-mini rtl">
-  <!-- 顶部导航菜单-->
-  <header class="app-header"><a class="app-header__logo" href="#/"><span>刀锋网络</span></a>
-    <!-- Sidebar toggle button-->
-    <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">Home</li>
-      <li class="breadcrumb-item">看板</li>
-      <li class="breadcrumb-item active">Data Table</li>
-    </ol>
-    <!-- 右侧功能菜单-->
-    <ul class="app-nav">
-      <li class="app-search" style="display:none">
-        <input class="app-search__input" type="search" placeholder="Search">
-        <button class="app-search__button"><i class="fa fa-search"></i></button>
-      </li>
-      <!--消息提示菜单-->
-      <li class="dropdown"><a class="app-nav__item" href="javascript:;" data-toggle="dropdown"
-          aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
-        <ul class="app-notification dropdown-menu dropdown-menu-right">
-          <li class="app-notification__title">您有4条未读消息</li>
-          <div class="app-notification__content">
-            <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span
-                    class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i
-                      class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                <div>
-                  <p class="app-notification__message">李四发来消息</p>
-                  <p class="app-notification__meta">2 分钟之前</p>
-                </div>
-              </a></li>
-          </div>
-          <li class="app-notification__footer"><a href="#">查看所有未读消息</a></li>
-        </ul>
-      </li>
-      <!-- 用户菜单-->
-      <li class="dropdown">
-        <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
-            class="fa fa-user fa-lg"></i></a>
-        <ul class="dropdown-menu settings-menu dropdown-menu-right">
-          <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i>设置</a></li>
-          <li id="logout-btn"><a class="dropdown-item" href="javascript:;"><i class="fa fa-sign-out fa-lg"></i>退出</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </header>
-  <!-- 侧边菜单-->
-  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="img/avatar.png" alt="User Image">
-      <div>
-        <p class="app-sidebar__user-name">张三</p>
-        <p class="app-sidebar__user-designation">管理员</p>
+<body class="hold-transition skin-green sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <!-- Logo -->
+      <div class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>A</b>LT</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Admin</b>LTE</span>
       </div>
-    </div>
-    <ul class="app-menu">
-      <li class="side-menu-item">
-        <a class="app-menu__item" href="/dashboard/index?id=1">
-          <i class="app-menu__icon fa fa-dashboard"></i>
-          <span class="app-menu__label">看板</span></a>
-      </li>
-      <li class="treeview side-menu-item">
-        <a class="app-menu__item" href="javascript:;" data-toggle="treeview">
-          <i class="app-menu__icon fa fa-laptop"></i>
-          <span class="app-menu__label">表格</span>
-          <i class="treeview-indicator fa fa-angle-right"></i>
+      <!-- Header Navbar: style can be found in header.less -->
+      <div id="firstnav">
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="javascript:;" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">切换导航</span>
         </a>
-        <ul class="treeview-menu">
-          <li>
-            <a class="treeview-item" href="/table/data/index"><i class="icon fa"></i>数据表格</a>
-          </li>
-          <li>
-            <a class="treeview-item" href="/table/basic/index"><i class="icon fa"></i>基础表格</a>
-          </li>
+        <ul class="nav nav-tabs nav-addtabs disable-top-badge hidden-xs" role="tablist">
+          <!-- <li role="presentation" id="tab_1" class="active"><a href="#con_1" node-id="1" aria-controls="1" role="tab" data-toggle="tab"><i class="fa fa-dashboard fa-fw fa-fw"></i> <span>控制台</span> </a></li> -->
         </ul>
-      </li>
-      <li class="side-menu-item">
-        <a class="app-menu__item" href="/form/index">
-          <i class="app-menu__icon fa fa-dashboard"></i>
-          <span class="app-menu__label">表单</span></a>
-      </li>
-      <li class="side-menu-item">
-        <a class="app-menu__item" href="/chart/index">
-          <i class="app-menu__icon fa fa-dashboard"></i>
-          <span class="app-menu__label">图表</span></a>
-      </li>
-    </ul>
-  </aside>
-  <main class="app-content" id="app-main-content">
-  </main>
-  <!-- 退出提示弹窗 -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 4 messages</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+                    <li>
+                      <!-- start message -->
+                      <a href="javascript:;">
+                        <div class="pull-left">
+                          <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>Support Team
+                          <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                        </h4>
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                    <!-- end message -->
+                    <li>
+                      <a href="javascript:;">
+                        <div class="pull-left">
+                          <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>
+                          AdminLTE Design Team
+                          <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                        </h4>
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <div class="pull-left">
+                          <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>
+                          Developers
+                          <small><i class="fa fa-clock-o"></i> Today</small>
+                        </h4>
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <div class="pull-left">
+                          <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>
+                          Sales Department
+                          <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                        </h4>
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <div class="pull-left">
+                          <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                        </div>
+                        <h4>
+                          Reviewers
+                          <small><i class="fa fa-clock-o"></i> 2 days</small>
+                        </h4>
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="footer"><a href="javascript:;">查看所有消息</a></li>
+              </ul>
+            </li>
+            <!-- Notifications: style can be found in dropdown.less -->
+            <li class="dropdown notifications-menu">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">10</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 10 notifications</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+                    <li>
+                      <a href="javascript:;">
+                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                        page and may cause design problems
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <i class="fa fa-users text-red"></i> 5 new members joined
+                      </a>
+                    </li>
 
-  <div class="modal fade" id="myLogOutPop">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <!-- 模态框头部 -->
-        <div class="modal-header">
-          <h4 class="modal-title">提示</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <li>
+                      <a href="javascript:;">
+                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        <i class="fa fa-user text-red"></i> You changed your username
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="footer"><a href="javascript:;">全部</a></li>
+              </ul>
+            </li>
+            <!-- Tasks: style can be found in dropdown.less -->
+            <li class="dropdown tasks-menu">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-flag-o"></i>
+                <span class="label label-danger">9</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 9 tasks</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+                    <li>
+                      <!-- Task item -->
+                      <a href="javascript:;">
+                        <h3>
+                          设计按钮
+                          <small class="pull-right">20%</small>
+                        </h3>
+                        <div class="progress xs">
+                          <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">20% Complete</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <!-- end task item -->
+                    <li>
+                      <!-- Task item -->
+                      <a href="javascript:;">
+                        <h3>
+                          Create a nice theme
+                          <small class="pull-right">40%</small>
+                        </h3>
+                        <div class="progress xs">
+                          <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">40% Complete</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <!-- end task item -->
+                    <li>
+                      <!-- Task item -->
+                      <a href="javascript:;">
+                        <h3>
+                          Some task I need to do
+                          <small class="pull-right">60%</small>
+                        </h3>
+                        <div class="progress xs">
+                          <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">60% Complete</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <!-- end task item -->
+                    <li>
+                      <!-- Task item -->
+                      <a href="javascript:;">
+                        <h3>
+                          Make beautiful transitions
+                          <small class="pull-right">80%</small>
+                        </h3>
+                        <div class="progress xs">
+                          <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">80% Complete</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <!-- end task item -->
+                  </ul>
+                </li>
+                <li class="footer">
+                  查看所有任务
+                </li>
+              </ul>
+            </li>
+            <li class="hidden-xs">
+                <a href="#" data-toggle="fullscreen"><i class="fa fa-arrows-alt"></i></a>
+            </li>
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="img/avatar.png" class="user-image" alt="User Image">
+                <span class="hidden-xs">管理员</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <img src="img/avatar.png" class="img-circle" alt="User Image">
+                  <!-- <p> 管理员 - Web Developer<small>Member since Nov. 2012</small></p> -->
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="javascript:;" class="btn btn-default btn-flat">设置</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="javascript:;" class="btn btn-default btn-flat">退出</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <!-- 模态框主体 -->
-        <div class="modal-body">
-          确定退出？
+      </nav>
+    </div>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="img/avatar.png" class="img-circle" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p>管理员</p>
+            <a href="javascript:;"><i class="fa fa-circle text-success"></i> 在线</a>
+          </div>
         </div>
-        <!-- 模态框底部 -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-          <button type="button" id="confirmLogOut" class="btn btn-primary" data-dismiss="modal">确定</button>
-        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <!-- <ul class="sidebar-menu">
+          <li><a href="/documentation/index.html" data-nav-id="1"><i class="fa fa-book"></i><span>控制台</span></a></li>
+          <li class="treeview">
+            <a href="javascript:;">
+              <i class="fa fa-files-o"></i>
+              <span>布局选项</span>
+              <span class="pull-right-container">
+                <span class="label label-primary pull-right">4</span>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/layout/top-nav.html" data-nav-id="2"><i class="fa fa-circle-o"></i>顶部导航</a></li>
+              <li><a href="/layout/boxed.html"  data-nav-id="3"><i class="fa fa-circle-o"></i>盒子</a></li>
+              <li><a href="/layout/fixed.html" data-nav-id="4"><i class="fa fa-circle-o"></i>定位</a></li>
+              <li><a href="/layout/collapsed-sidebar.html" data-nav-id="5"><i class="fa fa-circle-o"></i>可折叠侧边栏</a></li>
+            </ul>
+          </li>
 
-      </div>
+          <li class="treeview">
+            <a href="javascript:;">
+              <i class="fa fa-edit"></i><span>表单</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/general.html" data-nav-id="3"><i class="fa fa-circle-o"></i> 常规元素</a></li>
+              <li><a href="/advanced.html" data-nav-id="3"><i class="fa fa-circle-o"></i> 高级元素</a></li>
+              <li><a href="/editors.html" data-nav-id="3"><i class="fa fa-circle-o"></i> 编辑</a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="javascript:;">
+              <i class="fa fa-table"></i> <span>表格</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/tables/simple.html"><i class="fa fa-circle-o"></i> 简单表格</a></li>
+              <li><a href="/tables/data.html"><i class="fa fa-circle-o"></i> 数据表格</a></li>
+            </ul>
+          </li>
+          
+          <li class="header">相关链接</li>
+          <li><a href="https://adminlte.io/"><i class="fa fa-circle-o text-red"></i> <span>官方文档</span></a></li>
+          <li><a href="https://github.com/ColorlibHQ/AdminLTE"><i class="fa fa-circle-o text-yellow"></i> <span>github地址</span></a></li>
+
+        </ul> -->
+        <ul class="sidebar-menu ">
+            <li class="active"><a href="/admin/dashboard" data-nav-id="1">
+              <i class="fa fa-dashboard fa-fw"></i> <span>控制台</span><span class="pull-right-container">
+                  <small class="label pull-right bg-blue">hot</small></span></a></li>
+            <li class=" treeview"><a href="javascript:;" data-nav-id="2" >
+              <i class="fa fa-cogs fa-fw"></i><span>常规管理</span> <span class="pull-right-container">
+                <small class="label pull-right bg-purple">new</small></span></a>
+              <ul class="treeview-menu">
+                <li class=""><a href="/admin/general/config?id=2" data-nav-id="6">
+                  <i class="fa fa-cog fa-fw"></i><span>系统配置</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a href="/admin/general/attachment" data-nav-id="7">
+                  <i class="fa fa-file-image-o fa-fw"></i> <span>附件管理</span><span
+                      class="pull-right-container"> </span></a></li>
+                <li class=""><a href="/admin/general/profile" data-nav-id="8">
+                  <i class="fa fa-user fa-fw"></i> <span>个人配置</span><span class="pull-right-container"></span></a> </li>
+              </ul>
+            </li>
+            <li class=""><a href="/admin/category" data-nav-id="3">
+              <i class="fa fa-list fa-fw"></i><span>分类管理</span><span class="pull-right-container"></span></a> </li>
+              <li class=" treeview"><a href="javascript:;" data-nav-id="5"><i
+                  class="fa fa-group fa-fw"></i> <span>权限管理</span> <span class="pull-right-container"><i
+                    class="fa fa-angle-left"></i> </span></a>
+              <ul class="treeview-menu">
+                <li class=""><a href="/admin/auth/admin" data-nav-id="9"><i class="fa fa-user fa-fw"></i> <span>管理员管理</span> <span
+                      class="pull-right-container"> </span></a> </li>
+                <li class=""><a href="/admin/auth/adminlog" data-nav-id="10"><i class="fa fa-list-alt fa-fw"></i> <span>管理员日志</span> <span
+                      class="pull-right-container"> </span></a> </li>
+                <li class=""><a href="/admin/auth/group" data-nav-id="11"><i class="fa fa-group fa-fw"></i> <span>角色组</span> <span class="pull-right-container">
+                    </span></a> </li>
+                <li class=""><a href="/admin/auth/rule" data-nav-id="12"><i class="fa fa-bars fa-fw"></i> <span>菜单规则</span> <span class="pull-right-container"><small class="label pull-right bg-purple">菜单</small></span></a> </li>
+              </ul>
+            </li>
+            <li class=" treeview"><a href="javascript:;" data-nav-id="66" ><i
+                  class="fa fa-list fa-fw"></i> <span>会员管理</span><span class="pull-right-container"><i
+                    class="fa fa-angle-left"></i> </span></a>
+              <ul class="treeview-menu">
+                <li class=""><a href="/admin/user/user" data-nav-id="67">
+                  <i class="fa fa-user fa-fw"></i><span>会员管理</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a href="/admin/user/group" data-nav-id="73">
+                  <i class="fa fa-users fa-fw"></i><span>会员分组</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a href="/admin/user/rule" data-nav-id="79">
+                  <i class="fa fa-circle-o fa-fw"></i> <span>会员规则</span><span class="pull-right-container"></span></a></li>
+              </ul>
+            </li>
+            <!--以下4行可以删除或改成自己的链接,但建议你在你的网站上添加一个FastAdmin的链接-->
+            <li class="header">相关链接</li>
+            <li><a href="https://doc.fastadmin.net" target="_blank"><i class="fa fa-list text-red"></i><span>官方文档</span></a></li>
+            <li><a href="https://forum.fastadmin.net" target="_blank"><i class="fa fa-comment text-yellow"></i><span>交流社区</span></a></li>
+            <li><a href="https://jq.qq.com/?_wv=1027&k=487PNBb" target="_blank"><i class="fa fa-qq text-aqua"></i> <span>QQ交流群</span></a></li>
+          </ul>
+      
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- 页面主逻辑-->
+    <div class="content-wrapper" id="app-main-content">
+
     </div>
   </div>
-  <!-- 首页入口主逻辑 -->
-  <script>
-  //页面主逻辑功能，切勿移除，否则加载逻辑和左侧菜单将会工作不正常
-  // ------------------start-----------------------
-    // 侧边栏收起相关操作
-    (function () {
-      $('[data-toggle="sidebar"]').click(function (event) {
-        event.preventDefault();
-        $('.app').toggleClass('sidenav-toggled');
-        $(".app-header__logo").toggleClass('home-logo-toggled');
-      });
-  
-    //左侧菜单栏相关功能
-
-      $(".app-menu .side-menu-item").click(function (e) {
-        //获取点击的元素给其添加样式，讲其兄弟元素的样式移除
-        $(this).addClass("active").siblings().removeClass("active");
-        //包含二级菜单的选项展开
-        var $expand = $(e.target).parent("[data-toggle='treeview']").length > 0 ? $(e.target).parent("[data-toggle='treeview']") : $(e.target);
-        if ($expand.attr('data-toggle') === 'treeview') {
-          var $parent = $expand.parent();
-          var $child = $parent.children(".treeview-menu");
-          if ($parent.hasClass("is-expanded")) {
-            $parent.removeClass('is-expanded');
-            $child.css("height", "0px")
-          } else {
-            var _height = $child.children("li").height() * $child.children("li").length;
-            $child.css("height", (_height) + "px")
-            $parent.addClass('is-expanded');
-          }
-   
-   
-        }
-        //移除所有二级菜单的样式
-        ($(this).parent().children(".is-expanded").children(".treeview-menu").find("li")).removeClass("active");
-        $(this).siblings(".is-expanded").removeClass("is-expanded").children(".treeview-menu").css("height", "0px")
-        //激活二级菜单的样式
-        if ($(this).hasClass("is-expanded")) {
-          $(e.target).parent("li").addClass("active");
-        }
-   
-      });
-   
-   
-   
-    //侧边菜单mini模式时的交互效果
-      $(".app-menu .treeview").hover(function () {
-        if ($('body').hasClass("sidenav-toggled")) {
-          var $child = $(this).children(".treeview-menu");
-          var _height = $child.children("li").height() * $child.children("li").length;
-          $child.css("height", (_height) + "px")
-        }
-      }, function () {
-        if ($('body').hasClass("sidenav-toggled")) {
-          $(this).children(".treeview-menu").css("height", "0")
-        }
-      })
-   
-   
-    //路由功能，实现hash模式的路由
-      var $treeviewMenu = $('.app-menu');
-      var _router = {
-        init: function ($wrap, $viewMenu) {
-          var that = this;
-          this._query = this.routerQuery();
-          //重定向或初始化
-          this.redirect($viewMenu, this._query, $wrap);
-          //监听hash变化
-          window.onhashchange = function (e) {
-            var _newPath = (e.newURL).substring(e.newURL.indexOf("#") + 1)
-            that.taggleFrame($wrap, _newPath)
-          }
-        },
-        redirect: function ($viewMenu, _query, $wrap) {
-          var $routerPath = [],
-            $router = $viewMenu.find("a");
-          for (var k = 0; k < $router.length; k++) {
-            var _href = $router.eq(k).attr("href")
-            if (_href.match(/^\//g) && $routerPath.indexOf(_href) == -1) {
-              $routerPath.push(_href)
-            }
-          }
-          if ($routerPath.indexOf(_query.full) == -1) {
-            window.location.hash = "#" + $routerPath[0];
-            this.initMenu($routerPath[0], $viewMenu)
-          } else {
-            this.initMenu(_query.full, $viewMenu);
-            this.creatFrame($wrap, _query.full);
-          }
-   
-        },
-        initMenu: function (path, $viewMenu) {
-          //阻止A标签的跳转，手动强制为hash模式
-          $viewMenu.find("a").click(function (e) {
-            e.preventDefault();
-            var _href = $(this).attr("href")
-            if (_href.match(/^\//g)) {
-              window.location.hash = _href;
-            }
-          });
-          var $menu = ($viewMenu.find("a[href='" + path + "']")).eq(0);
-          if ($menu.parents(".treeview")) {
-            $menu.parents(".treeview").eq(0).children("[data-toggle='treeview']").click()
-          }
-          $menu.click();
-        },
-        routerQuery: function () {
-          var _allPath = (window.location.hash).substring(1);
-          var _allPathArr = _allPath.split("?");
-          return {
-            path: _allPathArr[0] ? _allPathArr[0] : "/",
-            query: this.getSearchKey((_allPathArr[1] || "")),
-            full: _allPath
-          };
-        },
-        getSearchKey: function (argStr) {
-          var argObj = {},
-            item = null,
-            value = null,
-            key = null,
-            argArr = argStr.length > 0 ? argStr.split("&") : [];
-          for (var i = 0, len = argArr.length; i < len; i++) {
-            item = argArr[i].split("=");
-            key = item[0];
-            value = item[1];
-            argObj[key] = value;
-          }
-          return argObj
-        },
-        taggleFrame($wrap, path) {
-          //过滤search参数
-          var _path = path.split("?")[0] ? path.split("?")[0] : path;
-          var _target = $wrap.find("div[data-index='" + _path + "']");
-          $wrap.children(".tab-pane").removeClass("active");
-          if (_target.length > 0) {
-            _target.toggleClass("active")
-          } else {
-            //初始化创建
-            this.creatFrame($wrap, path)
-   
-          }
-        },
-        creatFrame: function ($wrap, path) {
-          var _str = '<div class="tab-pane active" data-index="' + path + '">';
-          _str += '<iframe src="' + path + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe>'
-          _str += '</div>';
-          $wrap.append(_str)
-        }
-      }
-      //初始化操作
-      _router.init($("#app-main-content"), $treeviewMenu);
-    })();
-   
-    $('[data-toggle="popover"]').popover();
-   //---------------------end-----------------
-
-
-    //退出功能
-    $('#logout-btn').click(function () {
-      $("#myLogOutPop").modal({})
-    })
-    $("#confirmLogOut").click(function () {
-      // 退出时的相关功能
-      // do some thing...
-      window.location.href="/"
-    })
-    
-  </script>
+  <script src="js/adminLTE.min.js"></script>
 </body>
 
 </html>
