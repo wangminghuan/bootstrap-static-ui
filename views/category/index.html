@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- 以下资源每个页面都需引用 --start -->
+  <!-- 以下资源每个页面都需引用 --start -->
+  <link rel="stylesheet" type="text/css" href="../css/backend.min.css">
+  <script src="../js/bootstrap-jquery.min.js"></script>
+  <!-- end -->
+  <!-- 以下内容可以根据需要引用 -->
+  <!-- 图表插件 -->
+  <!-- <script src="../js/plugins/chart.min.js"></script> -->
+  <!-- 上传插件 -->
+  <!-- <script src="../js/plugins/fileinput.min.js"></script> -->
+  <!-- 时间选择插件 -->
+  <!-- <script src="../js/plugins/flatpickr.min.js"></script> -->
+</head>
+
+<body class="inside-header inside-aside" marginwidth="0" marginheight="0">
+  <div id="main" role="main">
+    <div class="tab-content tab-addtabs">
+      <div id="content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <section class="content-header hide">
+              <h1>
+                控制台 <small>Control panel</small>
+              </h1>
+            </section>
+            <!-- RIBBON -->
+            <div id="ribbon">
+              <ol class="breadcrumb pull-left">
+                <!-- <li><a href="dashboard" class="addtabsit"><i class="fa fa-dashboard"></i> 控制台</a></li> -->
+              </ol>
+              <ol class="breadcrumb pull-right">
+                <li><a href="javascript:;" data-url="/admin/dashboard/dashboard">控制台</a></li>
+              </ol>
+            </div>
+            <!-- END RIBBON -->
+            <!-- data-toggle=tab 的id 与tab-pane的id对应 即可完成切换 -->
+            <div class="content">
+              <div class="panel panel-default panel-intro">
+                <div class="panel-heading">
+                  <div class="panel-lead"><em>分类管理</em>用于统一管理网站的所有分类,分类可进行无限级分类</div>
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#all" data-toggle="tab" aria-expanded="true">全部</a></li>
+                    <li class=""><a href="#default" data-toggle="tab" aria-expanded="false">默认</a></li>
+                    <li class=""><a href="#page" data-toggle="tab" aria-expanded="false">单页</a></li>
+                    <li class=""><a href="#article" data-toggle="tab" aria-expanded="false">文章</a></li>
+                    <li class=""><a href="#test" data-toggle="tab" aria-expanded="false">Test</a></li>
+                  </ul>
+
+                </div>
+                <div class="panel-body">
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="all">
+                      <div class="tab-pane fade active in" id="one">
+                          <table class="table table-hover table-bordered table-striped" id="my-table-wrap">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th>姓名</th>
+                                  <th>职位</th>
+                                  <th>办公室</th>
+                                  <th>年龄</th>
+                                  <th>开始时间</th>
+                                  <th>薪资</th>
+                                  <th>操作</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Tiger Nixon</td>
+                                  <td>System Architect</td>
+                                  <td>Edinburgh</td>
+                                  <td>61</td>
+                                  <td>2011/04/25</td>
+                                  <td>$320,800</td>
+                                  <td>
+                                    <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
+                                    <!-- data-original-title  按钮hover时的提示 -->
+                                    <!-- data-table-id  操作的是哪个表格id,页面会出现多个表格的情况 -->
+                                    <!-- data-row-index  操作的是第几行 -->
+                                    <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
+                                    <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
+                                    <a href="/admin/edit?id=0" 
+                                    class="btn btn-xs btn-success btn-editone" 
+                                    data-toggle="operate-table" 
+                                    data-table-id="my-table-wrap"   
+                                    data-row-index="0" 
+                                    data-button-type="edit"
+                                    data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
+                                    <a href="/admin/category/del/0"
+                                    class="btn btn-xs btn-danger btn-delone" 
+                                    data-toggle="operate-table" 
+                                    data-table-id="my-table-wrap" 
+                                    data-row-index="0" 
+                                    data-button-type="del" 
+                                    data-original-title="删除"><i class="fa fa-trash"></i></a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Garrett Winters</td>
+                                  <td>Accountant</td>
+                                  <td>Tokyo</td>
+                                  <td>63</td>
+                                  <td>2011/07/25</td>
+                                  <td>$170,750</td>
+                                  <td>
+                                      <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
+                                      <!-- data-original-title  按钮hover时的提示 -->
+                                      <!-- data-table-id  操作的是哪个表格id,页面会出现多个表格的情况 -->
+                                      <!-- data-row-index  操作的是第几行 -->
+                                      <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
+                                      <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
+                                      <a href="/admin/edit?id=1" 
+                                      class="btn btn-xs btn-success btn-editone" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap"   
+                                      data-row-index="1" 
+                                      data-button-type="edit"
+                                      data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
+                                      <a href="/admin/category/del/1"
+                                      class="btn btn-xs btn-danger btn-delone" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap" 
+                                      data-row-index="1" 
+                                      data-button-type="del" 
+                                      data-original-title="删除"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                  <td>Ashton Cox</td>
+                                  <td>Junior Technical Author</td>
+                                  <td>San Francisco</td>
+                                  <td>66</td>
+                                  <td>2009/01/12</td>
+                                  <td>$86,000</td>
+                                  <td>
+                                      <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
+                                      <!-- data-original-title  按钮hover时的提示 -->
+                                      <!-- data-table-id  操作的是哪个表格id,页面会出现多个表格的情况 -->
+                                      <!-- data-row-index  操作的是第几行 -->
+                                      <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
+                                      <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
+                                      <a href="/admin/edit?id=2" 
+                                      class="btn btn-xs btn-success btn-editone" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap"   
+                                      data-row-index="2" 
+                                      data-button-type="edit"
+                                      data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
+                                      <a href="/admin/category/del/ids/2"
+                                      class="btn btn-xs btn-danger btn-delone" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap" 
+                                      data-row-index="2" 
+                                      data-button-type="del" 
+                                      data-original-title="删除"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="default">
+                      自定义内容默认
+                    </div>
+                    <div class="tab-pane fade" id="page">
+                      自定义内容单页
+                    </div>
+                    <div class="tab-pane fade" id="article">
+                      自定义内容文章
+                    </div>
+                    <div class="tab-pane fade" id="test">
+                      自定义内容测试
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

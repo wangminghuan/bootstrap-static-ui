@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- 以下资源每个页面都需引用 --start -->
+  <!-- 以下资源每个页面都需引用 --start -->
+  <link rel="stylesheet" type="text/css" href="../../css/backend.min.css">
+  <script src="../../js/bootstrap-jquery.min.js"></script>
+  <!-- end -->
+  <!-- 以下内容可以根据需要引用 -->
+  <!-- 图表插件 -->
+  <!-- <script src="../js/plugins/chart.min.js"></script> -->
+  <!-- 上传插件 -->
+  <!-- <script src="../js/plugins/fileinput.min.js"></script> -->
+  <!-- 时间选择插件 -->
+  <!-- <script src="../js/plugins/flatpickr.min.js"></script> -->
+</head>
+
+<body class="inside-header inside-aside ">
+  <div id="main" role="main">
+    <div class="tab-content tab-addtabs">
+      <div id="content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <section class="content-header hide">
+              <h1>
+                控制台 <small>Control panel</small>
+              </h1>
+            </section>
+            <!-- RIBBON -->
+            <div id="ribbon">
+              <ol class="breadcrumb pull-left"></ol>
+              <ol class="breadcrumb pull-right">
+                <li><a href="javascript:;" data-url="/admin/general.attachment/general">常规管理</a></li>
+                <li><a href="javascript:;" data-url="/admin/general/attachment">附件管理</a></li>
+              </ol>
+            </div>
+            <!-- END RIBBON -->
+            <div class="content">
+              <div class="panel panel-default panel-intro">
+                <div class="panel-heading">
+                  <div class="panel-lead"><em>系统配置</em>可以在此增改系统的变量和分组,也可以自定义分组和变量,如果需要删除请从数据库中删除</div>
+                  <ul class="nav nav-tabs">
+
+                    <li class="active"><a href="#basic" data-toggle="tab" aria-expanded="true">基础配置</a></li>
+
+                    <li class=""><a href="#email" data-toggle="tab" aria-expanded="false">邮件配置</a></li>
+
+                    <li class=""><a href="#dictionary" data-toggle="tab" aria-expanded="false">字典配置</a></li>
+
+                    <li class=""><a href="#user" data-toggle="tab" aria-expanded="false">会员配置</a></li>
+
+                    <li class=""><a href="#example" data-toggle="tab" aria-expanded="false">示例分组</a></li>
+                    <li class="">
+                      <a href="#addcfg" data-toggle="tab" aria-expanded="false"><i class="fa fa-plus"></i></a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="panel-body">
+                  <div id="myTabContent" class="tab-content">
+
+                    <div class="tab-pane fade active in" id="basic">
+                      <div class="widget-body no-padding">
+                        <form id="basic-form" class="edit-form form-horizontal nice-validator n-default n-bootstrap"
+                          role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit"
+                          novalidate="novalidate">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="15%">变量标题</th>
+                                <th width="68%">变量值</th>
+                                <th width="15%">变量名</th>
+                                <th width="2%"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>站点名称</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[name]" value="FastAdmin" class="form-control"
+                                        data-tip="请填写站点名称">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.name}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="name"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>备案号</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[beian]" value="" class="form-control" data-rule=""
+                                        data-tip="粤ICP备15054802号-4">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.beian}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="beian"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>CDN地址</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[cdnurl]" value="" class="form-control" data-rule=""
+                                        data-tip="如果静态资源使用第三方云储存请配置该值">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.cdnurl}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="cdnurl"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>版本号</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[version]" value="1.0.1" class="form-control"
+                                        data-tip="如果静态资源有变动请重新配置该值">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.version}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="version"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>时区</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[timezone]" value="Asia/Shanghai" class="form-control"
+                                        data-tip="">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.timezone}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="timezone"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>禁止IP</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <textarea name="row[forbiddenip]" class="form-control" data-rule="" rows="5"
+                                        data-tip="一行一条记录"></textarea>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.forbiddenip}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="forbiddenip"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>语言</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <dl class="fieldlist" data-name="row[languages]" data-listidx="0">
+                                        <dd>
+                                          <ins>键名</ins>
+                                          <ins>键值</ins>
+                                        </dd>
+                                        <dd class="form-inline"><input type="text" name="row[languages][0][key]"
+                                            class="form-control" value="backend" size="10"> <input type="text"
+                                            name="row[languages][0][value]" class="form-control" value="zh-cn"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort" data-cursor="pointer"
+                                            style="cursor: pointer;"><i class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[languages][1][key]"
+                                            class="form-control" value="frontend" size="10"> <input type="text"
+                                            name="row[languages][1][value]" class="form-control" value="zh-cn"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort" style="cursor: pointer;"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i
+                                              class="fa fa-plus"></i> 追加</a></dd>
+                                        <textarea name="row[languages]" class="form-control hide" cols="30"
+                                          rows="5">{"backend":"zh-cn","frontend":"zh-cn"}</textarea>
+                                      </dl>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.languages}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="languages"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>后台固定页</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[fixedpage]" value="dashboard" class="form-control"
+                                        data-tip="请尽量输入左侧菜单栏存在的链接">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.fixedpage}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="fixedpage"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                  <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="email">
+                      <div class="widget-body no-padding">
+                        <form id="email-form" class="edit-form form-horizontal nice-validator n-default n-bootstrap"
+                          role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit"
+                          novalidate="novalidate">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="15%">变量标题</th>
+                                <th width="68%">变量值</th>
+                                <th width="15%">变量名</th>
+                                <th width="2%"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>邮件发送方式</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <div class="btn-group bootstrap-select form-control"><button type="button"
+                                          class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button"
+                                          title="SMTP"><span class="filter-option pull-left">SMTP</span>&nbsp;<span
+                                            class="bs-caret"><span class="caret"></span></span></button>
+                                        <div class="dropdown-menu open" role="combobox">
+                                          <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                            <li data-original-index="0"><a tabindex="0" class="" style=""
+                                                data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="false"><span class="text">Please select</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            <li data-original-index="1" class="selected"><a tabindex="0" class=""
+                                                style="" data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="true"><span class="text">SMTP</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            <li data-original-index="2"><a tabindex="0" class="" style=""
+                                                data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="false"><span class="text">Mail</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                          </ul>
+                                        </div><select name="row[mail_type]" class="form-control selectpicker"
+                                          data-tip="选择邮件发送方式" tabindex="-98">
+                                          <option value="0">Please select</option>
+                                          <option value="1" selected="">SMTP</option>
+                                          <option value="2">Mail</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_type}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_type"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>SMTP服务器</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[mail_smtp_host]" value="smtp.qq.com"
+                                        class="form-control" data-rule="" data-tip="错误的配置发送邮件会导致服务器超时">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_smtp_host}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_smtp_host"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>SMTP端口</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[mail_smtp_port]" value="465" class="form-control"
+                                        data-rule="" data-tip="(不加密默认25,SSL默认465,TLS默认587)">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_smtp_port}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_smtp_port"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>SMTP用户名</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[mail_smtp_user]" value="10000" class="form-control"
+                                        data-rule="" data-tip="（填写完整用户名）">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_smtp_user}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_smtp_user"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>SMTP密码</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[mail_smtp_pass]" value="password"
+                                        class="form-control" data-rule="" data-tip="（填写您的密码）">
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_smtp_pass}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_smtp_pass"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>SMTP验证方式</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <div class="btn-group bootstrap-select form-control"><button type="button"
+                                          class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button"
+                                          title="SSL"><span class="filter-option pull-left">SSL</span>&nbsp;<span
+                                            class="bs-caret"><span class="caret"></span></span></button>
+                                        <div class="dropdown-menu open" role="combobox">
+                                          <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                            <li data-original-index="0"><a tabindex="0" class="" style=""
+                                                data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="false"><span class="text">None</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            <li data-original-index="1"><a tabindex="0" class="" style=""
+                                                data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="false"><span class="text">TLS</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            <li data-original-index="2" class="selected"><a tabindex="0" class=""
+                                                style="" data-tokens="null" role="option" aria-disabled="false"
+                                                aria-selected="true"><span class="text">SSL</span><span
+                                                  class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                          </ul>
+                                        </div><select name="row[mail_verify_type]" class="form-control selectpicker"
+                                          data-tip="（SMTP验证方式[推荐SSL]）" tabindex="-98">
+                                          <option value="0">None</option>
+                                          <option value="1">TLS</option>
+                                          <option value="2" selected="">SSL</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_verify_type}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_verify_type"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>发件人邮箱</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <input type="text" name="row[mail_from]" value="10000@qq.com" class="form-control"
+                                        data-rule="" data-tip="">
+                                    </div>
+                                    <div class="col-sm-4"><a class="btn btn-info testmail">发送测试邮件</a></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.mail_from}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="mail_from"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                  <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="dictionary">
+                      <div class="widget-body no-padding">
+                        <form id="dictionary-form"
+                          class="edit-form form-horizontal nice-validator n-default n-bootstrap" role="form"
+                          data-toggle="validator" method="POST" action="/admin/general.config/edit"
+                          novalidate="novalidate">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="15%">变量标题</th>
+                                <th width="68%">变量值</th>
+                                <th width="15%">变量名</th>
+                                <th width="2%"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>分类类型</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <dl class="fieldlist" data-name="row[categorytype]" data-listidx="1">
+                                        <dd>
+                                          <ins>键名</ins>
+                                          <ins>键值</ins>
+                                        </dd>
+                                        <dd class="form-inline"><input type="text" name="row[categorytype][0][key]"
+                                            class="form-control" value="default" size="10"> <input type="text"
+                                            name="row[categorytype][0][value]" class="form-control" value="Default"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[categorytype][1][key]"
+                                            class="form-control" value="page" size="10"> <input type="text"
+                                            name="row[categorytype][1][value]" class="form-control" value="Page"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[categorytype][2][key]"
+                                            class="form-control" value="article" size="10"> <input type="text"
+                                            name="row[categorytype][2][value]" class="form-control" value="Article"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[categorytype][3][key]"
+                                            class="form-control" value="test" size="10"> <input type="text"
+                                            name="row[categorytype][3][value]" class="form-control" value="Test"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i
+                                              class="fa fa-plus"></i> 追加</a></dd>
+                                        <textarea name="row[categorytype]" class="form-control hide" cols="30"
+                                          rows="5">{"default":"Default","page":"Page","article":"Article","test":"Test"}</textarea>
+                                      </dl>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.categorytype}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="categorytype"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                              <tr>
+                                <td>配置分组</td>
+                                <td>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-xs-12">
+                                      <dl class="fieldlist" data-name="row[configgroup]" data-listidx="2">
+                                        <dd>
+                                          <ins>键名</ins>
+                                          <ins>键值</ins>
+                                        </dd>
+                                        <dd class="form-inline"><input type="text" name="row[configgroup][0][key]"
+                                            class="form-control" value="basic" size="10"> <input type="text"
+                                            name="row[configgroup][0][value]" class="form-control" value="Basic"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[configgroup][1][key]"
+                                            class="form-control" value="email" size="10"> <input type="text"
+                                            name="row[configgroup][1][value]" class="form-control" value="Email"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[configgroup][2][key]"
+                                            class="form-control" value="dictionary" size="10"> <input type="text"
+                                            name="row[configgroup][2][value]" class="form-control" value="Dictionary"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[configgroup][3][key]"
+                                            class="form-control" value="user" size="10"> <input type="text"
+                                            name="row[configgroup][3][value]" class="form-control" value="User"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd class="form-inline"><input type="text" name="row[configgroup][4][key]"
+                                            class="form-control" value="example" size="10"> <input type="text"
+                                            name="row[configgroup][4][value]" class="form-control" value="Example"
+                                            size="30"> <span class="btn btn-sm btn-danger btn-remove"><i
+                                              class="fa fa-times"></i></span> <span
+                                            class="btn btn-sm btn-primary btn-dragsort"><i
+                                              class="fa fa-arrows"></i></span></dd>
+                                        <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i
+                                              class="fa fa-plus"></i> 追加</a></dd>
+                                        <textarea name="row[configgroup]" class="form-control hide" cols="30"
+                                          rows="5">{"basic":"Basic","email":"Email","dictionary":"Dictionary","user":"User","example":"Example"}</textarea>
+                                      </dl>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                  </div>
+
+                                </td>
+                                <td>{$site.configgroup}</td>
+                                <td><a href="javascript:;" class="btn-delcfg text-muted" data-name="configgroup"><i
+                                      class="fa fa-times"></i></a></td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                  <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="user">
+                      <div class="widget-body no-padding">
+                        <form id="user-form" class="edit-form form-horizontal nice-validator n-default n-bootstrap"
+                          role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit"
+                          novalidate="novalidate">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="15%">变量标题</th>
+                                <th width="68%">变量值</th>
+                                <th width="15%">变量名</th>
+                                <th width="2%"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                  <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="example">
+                      <div class="widget-body no-padding">
+                        <form id="example-form" class="edit-form form-horizontal nice-validator n-default n-bootstrap"
+                          role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit"
+                          novalidate="novalidate">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th width="15%">变量标题</th>
+                                <th width="68%">变量值</th>
+                                <th width="15%">变量名</th>
+                                <th width="2%"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                  <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="addcfg">
+                      <form id="add-form" class="form-horizontal nice-validator n-default n-bootstrap" role="form"
+                        data-toggle="validator" method="POST" action="/admin/general.config/add"
+                        novalidate="novalidate">
+                        <div class="form-group">
+                          <label for="type" class="control-label col-xs-12 col-sm-2">类型:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <div class="btn-group bootstrap-select form-control"><button type="button"
+                                class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button"
+                                title="字符"><span class="filter-option pull-left">字符</span>&nbsp;<span
+                                  class="bs-caret"><span class="caret"></span></span></button>
+                              <div class="dropdown-menu open" role="combobox">
+                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                  <li data-original-index="0" class="selected"><a tabindex="0" class="" style=""
+                                      data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span
+                                        class="text">字符</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">文本</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">编辑器</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">数字</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">日期</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">时间</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="6"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">日期时间</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="7"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">列表</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="8"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">列表(多选)</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="9"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">图片</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="10"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">图片(多)</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="11"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">文件</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="12"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">文件(多)</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="13"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">开关</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="14"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">复选</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="15"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">单选</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="16"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">数组</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="17"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">Custom</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                </ul>
+                              </div><select name="row[type]" class="form-control selectpicker" tabindex="-98">
+                                <option value="string" selected="">字符</option>
+                                <option value="text">文本</option>
+                                <option value="editor">编辑器</option>
+                                <option value="number">数字</option>
+                                <option value="date">日期</option>
+                                <option value="time">时间</option>
+                                <option value="datetime">日期时间</option>
+                                <option value="select">列表</option>
+                                <option value="selects">列表(多选)</option>
+                                <option value="image">图片</option>
+                                <option value="images">图片(多)</option>
+                                <option value="file">文件</option>
+                                <option value="files">文件(多)</option>
+                                <option value="switch">开关</option>
+                                <option value="checkbox">复选</option>
+                                <option value="radio">单选</option>
+                                <option value="array">数组</option>
+                                <option value="custom">Custom</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="group" class="control-label col-xs-12 col-sm-2">分组:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <div class="btn-group bootstrap-select form-control"><button type="button"
+                                class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button"
+                                title="基础配置"><span class="filter-option pull-left">基础配置</span>&nbsp;<span
+                                  class="bs-caret"><span class="caret"></span></span></button>
+                              <div class="dropdown-menu open" role="combobox">
+                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                  <li data-original-index="0" class="selected"><a tabindex="0" class="" style=""
+                                      data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span
+                                        class="text">基础配置</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">邮件配置</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">字典配置</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">会员配置</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                  <li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"
+                                      role="option" aria-disabled="false" aria-selected="false"><span
+                                        class="text">示例分组</span><span
+                                        class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                </ul>
+                              </div><select name="row[group]" class="form-control selectpicker" tabindex="-98">
+                                <option value="basic" selected="">基础配置</option>
+                                <option value="email">邮件配置</option>
+                                <option value="dictionary">字典配置</option>
+                                <option value="user">会员配置</option>
+                                <option value="example">示例分组</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group has-error">
+                          <label for="name" class="control-label col-xs-12 col-sm-2">变量名:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="form-control" id="name" name="row[name]" value=""
+                              aria-invalid="true"><span class="msg-box n-right" for="name"><span role="alert"
+                                class="msg-wrap n-error"><span class="n-icon"></span><span
+                                  class="n-msg">变量名不能为空</span></span></span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="title" class="control-label col-xs-12 col-sm-2">变量标题:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="form-control" id="title" name="row[title]" value="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="value" class="control-label col-xs-12 col-sm-2">变量值:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="form-control" id="value" name="row[value]" value="" data-rule="">
+                          </div>
+                        </div>
+                        <div class="form-group hide" id="add-content-container">
+                          <label for="content" class="control-label col-xs-12 col-sm-2">数据列表:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <textarea name="row[content]" id="content" cols="30" rows="5" class="form-control">value1|title1
+                value2|title2</textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="tip" class="control-label col-xs-12 col-sm-2">提示信息:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="form-control" id="tip" name="row[tip]" value="" data-rule="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="rule" class="control-label col-xs-12 col-sm-2">校验规则:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="form-control" id="rule" name="row[rule]" value="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="extend" class="control-label col-xs-12 col-sm-2">扩展属性:</label>
+                          <div class="col-xs-12 col-sm-4">
+                            <textarea name="row[extend]" id="extend" cols="30" rows="5" class="form-control"
+                              data-rule=""></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-xs-12 col-sm-2"></label>
+                          <div class="col-xs-12 col-sm-4">
+                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                          </div>
+                        </div>
+
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+
+</html>

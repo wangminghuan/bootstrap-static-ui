@@ -28,7 +28,7 @@
   <!-- <script src="js/addtabs.js"></script> -->
 </head>
 
-<body class="skin-green sidebar-mini fixed">
+<body class="hold-transition skin-green sidebar-mini">
   <div class="wrapper">
     <header class="main-header">
       <!-- Logo -->
@@ -265,7 +265,7 @@
                     <a href="javascript:;" class="btn btn-default btn-flat">设置</a>
                   </div>
                   <div class="pull-right">
-                    <a href="javascript:;" class="btn btn-default btn-flat">退出</a>
+                    <a href="javascript:;" class="btn btn-default btn-flat" data-toggle="logOut">退出</a>
                   </div>
                 </li>
               </ul>
@@ -309,7 +309,7 @@
               <i class="fa fa-cogs fa-fw"></i><span>常规管理</span> <span class="pull-right-container">
                 <small class="label pull-right bg-purple">new</small></span></a>
               <ul class="treeview-menu">
-                <li class=""><a href="/admin/general/config?id=2" data-nav-id="6">
+                <li class=""><a href="/admin/general/config" data-nav-id="6">
                   <i class="fa fa-cog fa-fw"></i><span>系统配置</span><span class="pull-right-container"></span></a></li>
                 <li class=""><a href="/admin/general/attachment" data-nav-id="7">
                   <i class="fa fa-file-image-o fa-fw"></i> <span>附件管理</span><span
@@ -360,6 +360,18 @@
     <div class="content-wrapper tab-content tab-addtabs" id="app-main-content"></div>
   </div>
   <script src="js/index.js"></script>
+  <script>
+// layer.confirm('您是如何看待前端开发？', {
+//   btn: ['重要','奇葩'] //按钮
+// }, function(){
+//   layer.msg('的确很重要', {icon: 1});
+// }, function(){
+//   layer.msg('也可以这样', {
+//     time: 20000, //20s后自动关闭
+//     btn: ['明白了', '知道了']
+//   });
+// });
+  </script>
 </body>
 
 </html>

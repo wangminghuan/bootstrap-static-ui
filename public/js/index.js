@@ -439,12 +439,14 @@ $(function(){
 
   //点击左侧菜单
   $(document).on('click', '.sidebar-menu li a', function (e) {
-    e.preventDefault();
     var _href = $(this).attr("href");
-    var _id=$(this).attr("data-nav-id");
-    if (_id && _href !== "#" && !((/^javascript:/g).test(_href))) {
-      window.location.hash = _href.indexOf("?")>-1?(_href+"&reftab="+_id):(_href+"?reftab="+_id);
-    }
+    if(!(_href.match(/^http/g) || _href.match(/^\/\//g))){
+      e.preventDefault();
+      var _id=$(this).attr("data-nav-id");
+      if (_id && _href !== "#" && !((/^javascript:/g).test(_href))) {
+        window.location.hash = _href.indexOf("?")>-1?(_href+"&reftab="+_id):(_href+"?reftab="+_id);
+      }
+    };
   });
   //全屏事件
   $(document).on('click', "[data-toggle='fullscreen']", function () {
@@ -456,6 +458,15 @@ $(function(){
         $(document.body).addClass("full-screen");
         doc.requestFullscreen ? doc.requestFullscreen() : doc.mozRequestFullScreen ? doc.mozRequestFullScreen() : doc.webkitRequestFullscreen ? doc.webkitRequestFullscreen() : doc.msRequestFullscreen && doc.msRequestFullscreen();
     }
+});
+ //退出事件
+ $(document).on('click', "[data-toggle='logOut']", function () {
+  layer.confirm('确认退出？', {
+    btn: ['确定','取消'] //按钮
+  }, function(){
+    //做你想做的操作
+    window.location.href="//"+window.location.host;
+  }); 
 });
   //顶部和路由初始化
   // $("#app-main-content").css("height",$(window).height()-$(".main-header").height()+"px")
