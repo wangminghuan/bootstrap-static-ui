@@ -5,19 +5,15 @@ router.get('/', async (ctx, next) => {
   })
 })
 router.get('/index', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
+  await ctx.render('index')
 })
 router.get('/form/index', async (ctx, next) => {
   await ctx.render('/form/index', {
     title: 'Hello Koa 2!'
   })
 })
-router.get('/dashboard/index', async (ctx, next) => {
-  await ctx.render('/dashboard/index', {
-    title: 'Hello Koa 2!'
-  })
+router.get('/admin/dashboard', async (ctx, next) => {
+  await ctx.render('/dashboard/index')
 })
 router.get('/table/data/index', async (ctx, next) => {
   await ctx.render('/table/data/index', {

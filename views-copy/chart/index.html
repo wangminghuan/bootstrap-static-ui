@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- 以下资源每个页面都需引用 --start -->
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script src="../js/bootstrap-jquery.min.js"></script>
+  <!-- end -->
+  <!-- 以下内容可以根据需要引用 -->
+  <!-- 图表插件 -->
+  <script src="../js/plugins/chart.min.js"></script>
+  <!-- 上传插件 -->
+  <script src="../js/plugins/fileinput.min.js"></script>
+  <!-- 时间选择插件 -->
+  <script src="../js/plugins/flatpickr.min.js"></script>
+</head>
+
+<body>
+  <div class="ifr-container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">线性图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">柱状图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">雷达图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="radarChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">极区图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="polarChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">环形图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile">
+          <h3 class="tile-title">饼图</h3>
+          <div class="embed-responsive embed-responsive-16by9">
+            <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  // 图标初始化数据功能，如果不需要则可以移除 
+  //-----------start-------------------
+    var pdata = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: [
+          'red',
+          'blue',
+          'green',
+          'black',
+          'yellow',
+          'pink',
+          'purple'
+        ],
+        borderColor: [
+          'red',
+          'blue',
+          'green',
+          'black',
+          'yellow',
+          'pink',
+          'purple'
+        ],
+        data: [0, 10, 5, 2, 20, 30, 45]
+      }]
+    };
+
+    new Chart(document.getElementById('lineChartDemo').getContext('2d'), {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: pdata,
+
+      // Configuration options go here
+      options: {}
+    });
+    new Chart(document.getElementById('barChartDemo').getContext('2d'), {
+      type: 'bar',
+      data: pdata,
+      options: {}
+    });
+    new Chart(document.getElementById('radarChartDemo').getContext('2d'), {
+      type: 'radar',
+      data: pdata,
+      options: {}
+    });
+    new Chart(document.getElementById('polarChartDemo').getContext('2d'), {
+      type: 'polarArea',
+      data: pdata,
+      options: {}
+    });
+    new Chart(document.getElementById('pieChartDemo').getContext('2d'), {
+      type: 'pie',
+      data: pdata,
+      options: {}
+    });
+    new Chart(document.getElementById('doughnutChartDemo').getContext('2d'), {
+      type: 'doughnut',
+      data: pdata,
+      options: {}
+    });
+    //-----------------end--------------------
+  </script>
+</body>
+
+</html>
