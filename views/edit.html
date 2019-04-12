@@ -129,8 +129,14 @@
                 <div class="form-group">
                   <label class="control-label col-xs-12 col-sm-2"></label>
                   <div class="col-xs-12 col-sm-8">
-                    <button type="submit" data-toggle="edit-submit" class="btn btn-success btn-embossed">确定</button>
-                    <button type="reset"  data-toggle="edit-reset" class="btn btn-default btn-embossed">重置</button>
+                    <button type="submit" 
+                    data-toggle="operate-iframe-pop" 
+                    data-button-type="submit"
+                    class="btn btn-success btn-embossed">确定</button>
+                    <button type="reset"  
+                    data-toggle="operate-iframe-pop" 
+                    data-button-type="reset" 
+                    class="btn btn-default btn-embossed">重置</button>
                   </div>
                 </div>
               </form>
@@ -140,21 +146,6 @@
       </div>
     </div>
   </div>
-  <script>
-    //编辑时表单相关操作
-       $("#edit-form").click(function(e){
-        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-          if($(e.target).attr("data-toggle")=="edit-submit"){
-            e.preventDefault();
-            parent.layer.close(index);
-            parent.location.reload();
-
-          }else if($(e.target).attr("data-toggle")=="edit-reset"){
-            e.preventDefault();
-            layer.alert('重置成功', {icon: 6});
-          }
-       })
-  </script>
 </body>
 
 </html>

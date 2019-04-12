@@ -59,26 +59,138 @@
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active in" id="all">
                       <div class="tab-pane fade active in" id="one">
+                       <div class="widget-body no-padding">
+                            <div class="fixed-table-toolbar" >
+                              <div class="bs-bars pull-left">
+                                <div id="toolbar" class="toolbar">
+                                  <a 
+                                  href="javascript:;"
+                                  data-url=""
+                                  data-toggle="operate-table" 
+                                  data-table-id="my-table-wrap" 
+                                  class="btn btn-primary btn-refresh" 
+                                  title="刷新" 
+                                  data-button-type="refresh"><i class="fa fa-refresh"></i></a> 
+                                  <a 
+                                  href="javascript:;"
+                                  data-url="/admin/edit" 
+                                   data-toggle="operate-table" 
+                                   data-table-id="my-table-wrap" 
+                                   class="btn btn-success btn-add" 
+                                   data-button-type="add"
+                                   title="添加"><i class="fa fa-plus"></i>添加</a>
+                                  <a 
+                                  href="javascript:;"
+                                  data-url="/admin/del"
+                                  data-toggle="operate-table" 
+                                  data-table-id="my-table-wrap" 
+                                  class="btn btn-danger btn-del"
+                                  data-button-type="multi-del"
+                                  title="删除"><i class="fa fa-trash"></i> 删除</a>
+                                  <div class="dropdown btn-group ">
+                                    <a class="btn btn-primary btn-more dropdown-toggle" data-toggle="dropdown"><i
+                                        class="fa fa-cog"></i> 更多</a>
+                                    <ul class="dropdown-menu text-left" role="menu">
+                                     <li><a 
+                                        class="btn btn-link btn-multi"  
+                                        data-table-id="my-table-wrap" 
+                                        data-toggle="operate-table" 
+                                        href="javascript:;"
+                                        data-url="/admin/show"
+                                        data-button-type="multi-show"
+                                        ><i class="fa fa-eye"></i>设为正常</a></li>
+                                      <li><a 
+                                        class="btn btn-link btn-multi" 
+                                        data-table-id="my-table-wrap"  
+                                        data-toggle="operate-table" 
+                                        href="javascript:;"
+                                        data-url="/admin/hide"
+                                        data-button-type="multi-hide"
+                                        ><i class="fa fa-eye-slash"></i>设为隐藏</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="columns columns-right btn-group pull-right">
+                                <div class="keep-open btn-group" title="列"><button type="button" aria-label="columns"
+                                    class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                      class="fa fa-th"></i> <span class="caret"></span></button>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <form action="/uptate/xxx" method="POST">
+                                    <li role="menuitem"><label><input type="checkbox" name="id" value="1" checked="checked"> ID</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" name="type" value="2" checked="checked"> 栏目类型</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="name" value="3" checked="checked"> 名称</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" name="nickname" value="4" checked="checked"> 昵称</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="flag" value="5" checked="checked"> 标志</label></li>
+                                    <li role="menuitem"><label><input type="checkbox" name="image" value="6" checked="checked"> 图片</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="weigh" value="7" checked="checked"> 权重</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="status" value="8" checked="checked"> 状态</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="operate" value="9" checked="checked"> 操作</label>
+                                    </li>
+                                    <li role="menuitem"><label><input type="checkbox" name="operate" value="9" checked="checked"> 操作</label>
+                                    </li>
+                                    <li style="padding-left: 19px"><button type="submit" class="btn btn-success btn-embossed">确定</button></li>
+                                    </form>
+                                  </ul>
+                                </div>
+                                <div class="export btn-group"><button class="btn btn-default dropdown-toggle" aria-label="export type" title="导出数据"
+                                    data-toggle="dropdown" type="button" aria-expanded="false"><i class="fa fa-download icon-share"></i>
+                                    <span class="caret"></span></button>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li role="menuitem" data-type="json"><a href="javascript:void(0)">JSON</a></li>
+                                    <li role="menuitem" data-type="xml"><a href="javascript:void(0)">XML</a></li>
+                                    <li role="menuitem" data-type="csv"><a href="javascript:void(0)">CSV</a></li>
+                                    <li role="menuitem" data-type="txt"><a href="javascript:void(0)">TXT</a></li>
+                                    <li role="menuitem" data-type="doc"><a href="javascript:void(0)">MS-Word</a></li>
+                                    <li role="menuitem" data-type="excel"><a href="javascript:void(0)">MS-Excel</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="pull-right search"><input 
+                                class="form-control"
+                                data-url="/admin/search"
+                                data-toggle="operate-table" 
+                                data-table-id="my-table-wrap" 
+                                data-button-type="search"
+                                type="text" placeholder="搜索"></div>
+                            </div>
                           <table class="table table-hover table-bordered table-striped" id="my-table-wrap">
                               <thead class="thead-dark">
                                 <tr>
+                                  <td><input 
+                                    data-table-id="my-table-wrap" 
+                                    data-toggle="operate-table"  
+                                    data-button-type="check"
+                                    class="table-check-all"
+                                    type="checkbox"></td>
                                   <th>姓名</th>
                                   <th>职位</th>
                                   <th>办公室</th>
                                   <th>年龄</th>
                                   <th>开始时间</th>
-                                  <th>薪资</th>
+                                  <th>状态</th>
                                   <th>操作</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <tr 
+                                  data-table-id="my-table-wrap" 
+                                  data-toggle="operate-table"  
+                                  data-button-type="check"
+                                  data-value="a" 
+                                  class="table-check-one" >
+                                  <td><input type="checkbox"></td>
                                   <td>Tiger Nixon</td>
                                   <td>System Architect</td>
                                   <td>Edinburgh</td>
                                   <td>61</td>
                                   <td>2011/04/25</td>
-                                  <td>$320,800</td>
+                                  <td><span class="text-success"><i class="fa fa-circle"></i> 正常</span></td>
                                   <td>
                                     <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
                                     <!-- data-original-title  按钮hover时的提示 -->
@@ -86,14 +198,18 @@
                                     <!-- data-row-index  操作的是第几行 -->
                                     <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
                                     <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
-                                    <a href="/admin/edit?id=0" 
+                                    <a 
+                                    href="javascript:;"
+                                    data-url="/admin/edit?id=0" 
                                     class="btn btn-xs btn-success btn-editone" 
                                     data-toggle="operate-table" 
                                     data-table-id="my-table-wrap"   
                                     data-row-index="0" 
                                     data-button-type="edit"
                                     data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
-                                    <a href="/admin/category/del/0"
+                                    <a 
+                                    href="javascript:;"
+                                    data-url="/admin/category/del/0"
                                     class="btn btn-xs btn-danger btn-delone" 
                                     data-toggle="operate-table" 
                                     data-table-id="my-table-wrap" 
@@ -102,13 +218,19 @@
                                     data-original-title="删除"><i class="fa fa-trash"></i></a>
                                   </td>
                                 </tr>
-                                <tr>
+                                <tr 
+                                data-table-id="my-table-wrap" 
+                                data-toggle="operate-table"  
+                                data-button-type="check"
+                                data-value="b" 
+                                class="table-check-one">
+                                  <td><input type="checkbox"></td>
                                   <td>Garrett Winters</td>
                                   <td>Accountant</td>
                                   <td>Tokyo</td>
                                   <td>63</td>
                                   <td>2011/07/25</td>
-                                  <td>$170,750</td>
+                                  <td><span class="text-warning"><i class="fa fa-circle"></i>警告</span></td>
                                   <td>
                                       <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
                                       <!-- data-original-title  按钮hover时的提示 -->
@@ -116,14 +238,18 @@
                                       <!-- data-row-index  操作的是第几行 -->
                                       <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
                                       <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
-                                      <a href="/admin/edit?id=1" 
+                                      <a 
+                                      href="javascript:;"
+                                      data-url="/admin/edit?id=1" 
                                       class="btn btn-xs btn-success btn-editone" 
                                       data-toggle="operate-table" 
                                       data-table-id="my-table-wrap"   
                                       data-row-index="1" 
                                       data-button-type="edit"
                                       data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
-                                      <a href="/admin/category/del/1"
+                                      <a 
+                                      href="javascript:;"
+                                      data-url="/admin/category/del/1"
                                       class="btn btn-xs btn-danger btn-delone" 
                                       data-toggle="operate-table" 
                                       data-table-id="my-table-wrap" 
@@ -132,13 +258,19 @@
                                       data-original-title="删除"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr 
+                                  data-table-id="my-table-wrap" 
+                                  data-toggle="operate-table"  
+                                  data-button-type="check"
+                                  data-value="c" 
+                                  class="table-check-one" >
+                                  <td><input type="checkbox"></td>
                                   <td>Ashton Cox</td>
                                   <td>Junior Technical Author</td>
                                   <td>San Francisco</td>
                                   <td>66</td>
                                   <td>2009/01/12</td>
-                                  <td>$86,000</td>
+                                  <td><span class="text-danger"><i class="fa fa-circle"></i>错误</span></td>
                                   <td>
                                       <!-- data-toggle="operate-table"  表明是需要操作的按钮 -->
                                       <!-- data-original-title  按钮hover时的提示 -->
@@ -146,14 +278,18 @@
                                       <!-- data-row-index  操作的是第几行 -->
                                       <!-- data-button-type 操作的动作，目前仅支持，删除，修改 -->
                                       <!-- href 修改时编辑的页面地址 ,删除时的接口地址-->
-                                      <a href="/admin/edit?id=2" 
+                                      <a  
+                                      href="javascript:;"
+                                      data-url="/admin/edit?id=2" 
                                       class="btn btn-xs btn-success btn-editone" 
                                       data-toggle="operate-table" 
                                       data-table-id="my-table-wrap"   
                                       data-row-index="2" 
                                       data-button-type="edit"
                                       data-original-title="编辑"><i class="fa fa-pencil"></i></a> 
-                                      <a href="/admin/category/del/ids/2"
+                                      <a 
+                                      href="javascript:;"
+                                      data-url="/admin/category/del/ids/2"
                                       class="btn btn-xs btn-danger btn-delone" 
                                       data-toggle="operate-table" 
                                       data-table-id="my-table-wrap" 
@@ -164,6 +300,7 @@
                                 </tr>
                               </tbody>
                           </table>
+                          </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="default">
