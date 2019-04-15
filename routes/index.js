@@ -18,6 +18,9 @@ router.get('/admin/dashboard', async (ctx, next) => {
 router.get('/admin/general/config', async (ctx, next) => {
   await ctx.render('/general/config')
 })
+router.get('/admin/general/attachment', async (ctx, next) => {
+  await ctx.render('/general/attachment')
+})
 router.get('/admin/category', async (ctx, next) => {
   await ctx.render('/category/index')
 })

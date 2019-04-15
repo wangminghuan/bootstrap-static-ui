@@ -7,3 +7,6 @@
 
 #### 弹层
 http://layer.layui.com/
+
+#### nice validator
+https://validator.niceue.com/docs/custom-rules.html
