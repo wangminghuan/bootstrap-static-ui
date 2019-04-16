@@ -11,7 +11,7 @@
     <title>Bootstrap-UI 管理后台-刀锋网络</title>
     <!-- 以下资源每个页面都需引用 --start -->
     <link rel="stylesheet" type="text/css" href="css/backend.min.css">
-    <script src="js/bootstrap-jquery.min.js"></script>
+    <script src="js/common_dep.js"></script>
     <!-- end -->
   </head>
 <body class="login-wrap">
@@ -23,7 +23,7 @@
             <!-- <p>欢迎登录xxx管理后台</p> -->
             <p id="profile-name" class="profile-name-card"
               style="color:#fff;text-shadow:0 1px 1px rgba(0, 0, 0, 0.15);">欢迎登录xxx管理后台</p>
-            <form action="/index" method="GET" id="login-form">
+            <form action="/api/login" method="POST" id="login-form">
               <div id="errtips" class="hide"></div>
               <input type="hidden" name="__token__" value="eee50027d46b4ecc28199dc879d16d0c" />
               <div class="input-group">
@@ -51,5 +51,26 @@
       </div>
     </div>
   </div>
+  <script>
+    // 登录功能
+  $('#login-form').validator({
+    valid: function(){
+      $.ajax({
+        url:$('#login-form').attr("action"),
+        data:$('#login-form').serialize(),
+        method:"post",
+        success:function(){
+          layer.info("登录成功！");
+          setTimeout(function(){
+            window.location.replace("/index")
+          },1000)
+        },
+        error:function(){
+          layer.error("登录失败");
+        }
+      })
+    }
+});
+  </script>
 </body>
 </html>

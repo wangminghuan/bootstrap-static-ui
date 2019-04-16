@@ -1,5 +1,6 @@
 ### 说明
 
+### 页面
 ### 插件介绍
 #### echarts.js
 使用：页面引入js/plugins/echarts.min.js
@@ -10,3 +11,5 @@ http://layer.layui.com/
 
 #### nice validator
 https://validator.niceue.com/docs/custom-rules.html
+
+#### fileinput

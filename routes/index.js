@@ -59,4 +59,14 @@ router.get('/login', async (ctx, next) => {
     title: 'Hello Koa 2!'
   })
 })
+router.post('/api/upload', async (ctx, next) => {
+  ctx.set("Content-Type", "application/json")
+  json={code:1}
+  ctx.body = JSON.stringify(json)
+})
+router.post('/api/login', async (ctx, next) => {
+  ctx.set("Content-Type", "application/json")
+  json={code:1}
+  ctx.body = JSON.stringify(json)
+})
 module.exports = router
