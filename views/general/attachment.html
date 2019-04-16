@@ -19,17 +19,11 @@
       <div id="content">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <section class="content-header hide">
-              <h1>
-                控制台 <small>Control panel</small>
-              </h1>
-            </section>
             <!-- RIBBON -->
             <div id="ribbon">
-              <ol class="breadcrumb pull-left"></ol>
               <ol class="breadcrumb pull-right">
-                <li><a href="javascript:;" data-url="/admin/general.attachment/general">常规管理</a></li>
-                <li><a href="javascript:;" data-url="/admin/general/attachment">附件管理</a></li>
+                <li><a href="javascript:;">常规管理</a></li>
+                <li class="active"><a href="/admin/general/attachment">附件管理</a></li>
               </ol>
             </div>
             <!-- END RIBBON -->
@@ -56,7 +50,7 @@
                                 data-button-type="refresh"><i class="fa fa-refresh"></i></a> 
                                 <a 
                                 href="javascript:;"
-                                data-url="/admin/edit" 
+                                 data-url="/admin/upload"
                                  data-toggle="operate-table" 
                                  data-table-id="my-table-wrap" 
                                  class="btn btn-success btn-add" 
@@ -70,16 +64,16 @@
                                 class="btn btn-danger btn-del"
                                 data-button-type="multi-del"
                                 title="删除"><i class="fa fa-trash"></i> 删除</a>
-                                <span
+                                <a
                                 href="javascript:;"
                                 data-url="/admin/upload"
                                 data-toggle="operate-table" 
                                 data-table-id="my-table-wrap" 
                                 class="btn btn-info btn-upload"
                                 data-button-type="upload-files"
-                                ><b href="javascript:;"><i class="fa fa-upload"></i>导入</b>
+                                ><i class="fa fa-upload"></i>导入
                                 <input class="upload-files-input" type="file"  accept="text/csv,.csv,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx">
-                              </span>
+                              </a>
                               </div>
                             </div>
                             <div class="columns columns-right btn-group pull-right">

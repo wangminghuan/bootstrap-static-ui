@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="keywords" content="刀锋内部后台" />
-  <meta name="description" content="刀锋内部后台" />
-  <link rel="stylesheet" type="text/css" href="css/backend.min.css">
-  <title>Bootstrap-UI 管理后台-刀锋网络</title>
-  <style>
-  </style>
-  <script src="js/bootstrap-jquery.min.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="刀锋内部后台" />
+    <meta name="description" content="刀锋内部后台" />
+    <title>Bootstrap-UI 管理后台-刀锋网络</title>
+    <!-- 以下资源每个页面都需引用 --start -->
+    <link rel="stylesheet" type="text/css" href="css/backend.min.css">
+    <script src="js/bootstrap-jquery.min.js"></script>
+    <!-- end -->
+  </head>
 <body class="login-wrap">
   <div class="container">
     <div class="login-wrapper">
@@ -37,10 +37,10 @@
                 <input type="password" class="form-control" id="pd-form-password" placeholder="密码" name="password"
                   autocomplete="off" value="" data-rule="密码:required;password" />
               </div>
-              <div class="form-group">
+              <div class="form-group animated-checkbox">
                 <label class="inline" for="keeplogin">
                   <input type="checkbox" name="keeplogin" id="keeplogin" value="1" />
-                  保持会话 </label>
+                  <span class="label-text">保持登录</span></label>
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-success btn-lg btn-block" data-toggle="logIn">登 录</button>
@@ -52,12 +52,4 @@
     </div>
   </div>
 </body>
-<script>
-$("button[data-toggle='logIn']").click(function(e){
-   if(!($("#pd-form-username").val() && $("#pd-form-password").val())){
-     e.preventDefault()
-     layer.error("请输入用户名和密码")
-   }
-})
-</script>
 </html>

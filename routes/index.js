@@ -36,6 +36,9 @@ router.get('/admin/edit', async (ctx, next) => {
 router.get('/admin/detail', async (ctx, next) => {
   await ctx.render('detail')
 })
+router.get('/admin/upload', async (ctx, next) => {
+  await ctx.render('upload')
+})
 router.get('/table/data/index', async (ctx, next) => {
   await ctx.render('/table/data/index', {
     title: 'Hello Koa 2!'

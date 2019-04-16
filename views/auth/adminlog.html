@@ -26,17 +26,11 @@
       <div id="content">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <section class="content-header hide">
-              <h1>
-                控制台 <small>Control panel</small>
-              </h1>
-            </section>
             <!-- RIBBON -->
             <div id="ribbon">
-              <ol class="breadcrumb pull-left"></ol>
               <ol class="breadcrumb pull-right">
-                <li><a href="javascript:;" data-url="/admin/general.attachment/general">常规管理</a></li>
-                <li><a href="javascript:;" data-url="/admin/general/attachment">附件管理</a></li>
+                <li><a href="javascript:;">权限管理</a></li>
+                <li><a href="/admin/auth/adminlog">管理员日志</a></li>
               </ol>
             </div>
             <!-- END RIBBON -->
@@ -332,6 +326,15 @@
                                       data-row-index="1" 
                                       data-button-type="del" 
                                       data-original-title="删除"><i class="fa fa-trash"></i></a>
+                                      <a 
+                                      href="javascript:;"
+                                      data-url="/admin/detail?id=8"
+                                      class="btn btn-info btn-xs btn-detail btn-dialog" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap"   
+                                      data-row-index="1" 
+                                      data-button-type="detail"
+                                      data-original-title="详情"><i class="fa fa-list"></i>详情</a> 
                                     </td>
                                 </tr>
                                 <tr 
@@ -373,6 +376,15 @@
                                       data-row-index="2" 
                                       data-button-type="del" 
                                       data-original-title="删除"><i class="fa fa-trash"></i></a>
+                                      <a 
+                                      href="javascript:;"
+                                      data-url="/admin/detail?id=8"
+                                      class="btn btn-info btn-xs btn-detail btn-dialog" 
+                                      data-toggle="operate-table" 
+                                      data-table-id="my-table-wrap"   
+                                      data-row-index="3" 
+                                      data-button-type="detail"
+                                      data-original-title="详情"><i class="fa fa-list"></i>详情</a> 
                                     </td>
                                 </tr>
                               </tbody>
