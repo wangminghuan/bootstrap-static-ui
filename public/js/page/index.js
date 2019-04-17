@@ -127,9 +127,6 @@ $.fn.addtabs = function (options) {
     _close(id);
     return false;
   });
-  // navobj.on('dblclick', 'li[role=presentation]', function () {
-  //     $(this).find(".close-tab").trigger("click");
-  // });
   navobj.on('click', 'li[role=presentation]', function () {
     $("a[data-nav-id=" + $("a", this).attr("node-id") + "]").trigger("click");
   });
@@ -169,19 +166,6 @@ $.fn.addtabs = function (options) {
         tabitem.append(' <i class="close-tab fa fa-remove"></i>');
       }
       if (conitem.length === 0) {
-        //创建新TAB的内容
-        // conitem = $('<div role="tabpanel" class="tab-pane" id="' + conid + '"></div>');
-        //是否指定TAB内容
-        // if (opts.content) {
-        //     conitem.append(opts.content);
-        // } else if (options.iframeUse && !opts.ajax) {//没有内容，使用IFRAME打开链接
-        //     var height = options.iframeHeight;
-        //     conitem.append('<iframe src="' + url + '" width="100%" height="' + height + '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe></div>');
-        // } else {
-        //     $.get(url, function (data) {
-        //         conitem.append(data);
-        //     });
-        // }
         if (options.iframeWrap) {
           $("[role='tabpanel']").removeClass("show");
           var _str = '<div role="tabpanel" class="tab-pane show" id="' + conid + '" data-ifr-id="' + opts.id + '">';
@@ -204,24 +188,7 @@ $.fn.addtabs = function (options) {
       if (options.iframeForceRefresh) {
         $("#" + conid + " iframe")[0].contentWindow.location.reload(true)
       }
-
-
-      // if (options.iframeForceRefresh) {
-      //     $("#" + conid + " iframe").attr('src', function (i, val) {
-      //         return val;
-      //     });
-      // } else if (options.iframeForceRefreshTable) {
-      //     try {
-      //         //检测iframe中是否存在刷新按钮
-      //         if ($("#" + conid + " iframe").contents().find(".btn-refresh").length > 0) {
-      //             $("#" + conid + " iframe")[0].contentWindow.$(".btn-refresh").trigger("click");
-      //         }
-      //     } catch (e) {
-
-      //     }
-      // }
     }
-    // localStorage.setItem("addtabs", $(this).prop('outerHTML'));
     //激活TAB
     tabitem.addClass('active');
     // conitem.addClass("active");
@@ -304,147 +271,17 @@ $.fn.refreshAddtabs = function () {
 
 };
 
-// //初始化router
-// (function () {
-//   var $treeviewMenu = $('.sidebar-menu');
-//   var _router = {
-//     init: function ($wrap, $viewMenu) {
-//       var that = this;
-//       this._query = this.routerQuery(window.location.hash.substring(1));
-
-//       //监听hash变化
-//       window.onhashchange = function (e) {
-//         var _newPath = that.routerQuery((e.newURL).substring(e.newURL.indexOf("#") + 1));
-//         var _id=_newPath.query && _newPath.query.reftab?_newPath.query.reftab:"0";
-//         //切换iframe标签
-//         // that.taggleFrame($wrap, _newPath.full, _id);
-//         //激活对应左侧菜单
-//         that.mockClick($viewMenu,"treeview-menu",_id)
-//       }
-//       //重定向或初始化
-//       this.redirect($viewMenu, this._query, $wrap);
-//     },
-//     //模拟点击
-//     mockClick:function($viewMenu,treeClass,id){
-//       var $targetLi=$viewMenu.find("a[data-nav-id='" + id + "']");
-//       var checkElement=$targetLi.parents("."+treeClass)
-//       $targetLi.trigger("click");
-//       if((checkElement.is('.'+treeClass)) && (!checkElement.is(':visible'))){
-//         checkElement.prev().trigger("click");
-//         // setTimeout(function(){
-//           // $targetLi.click();
-//         // },600)
-//       }else{
-//           // $targetLi.click();
-//         // $targetLi.click();
-//       }
-//     },
-//     redirect: function ($viewMenu, _query, $wrap) {
-//         window.$allRouterPath = {};
-//         var $router = $viewMenu.find("a");
-//         var firstId;
-//        //收集所有的id
-//       for (var k = 0; k < $router.length; k++) {
-//         var _href = $router.eq(k).attr("href");
-//         var _id = $router.eq(k).attr("data-nav-id");
-//         if (_id && _href !== "#" && !((/^javascript:/g).test(_href)) && !$allRouterPath[_id]) {
-//           if(!firstId) firstId=_id;
-//           $allRouterPath[_id]={
-//             id:_id,
-//             url:_href,
-//             txt:$router.eq(k).children("span").eq(0).text(),
-//             icon:$router.eq(k).children(".fa").attr("class"),
-//           }
-//         }
-//       }
-//       var initId=_query.query.reftab;
-//       // debugger;
-//       if (initId && $allRouterPath[initId]) {
-//         //初始化菜单，定位菜单位置
-//         // this.initMenu($viewMenu, initId);
-//         // this.creatFrame($wrap, _query.full, _query.query.reftab||"0");
-
-//       } else {
-//         //重定向
-//         var jumpUrl=$allRouterPath[firstId].url+($allRouterPath[firstId].url.indexOf("?")>-1?"&":"?")+"reftab="+firstId;
-//         window.location.hash = "#" + jumpUrl;
-//         // this.initMenu($viewMenu,firstId)
-//       }
-//     },
-//     initMenu: function ($viewMenu,$id) {
-//       var that=this;
-//       //阻止A标签的跳转，手动强制为hash模式
-//       $(document).on('click', '.sidebar-menu li a', function (e) {
-//         if($._fixClick(e,"data-click-2")) return;
-//         e.preventDefault();
-//         var _href = $(this).attr("href");
-//         var _id=$(this).attr("data-nav-id");
-//         if (_id && _href !== "#" && !((/^javascript:/g).test(_href))) {
-//           window.location.hash = _href.indexOf("?")>-1?(_href+"&reftab="+_id):(_href+"?reftab="+_id);
-//         }
-//       })
-//       // setTimeout(function(){
-//           that.mockClick($viewMenu,"treeview-menu",$id)
-//       // },10) 
-//     },
-//     routerQuery: function (urlPath) {
-//       var _allPath = (urlPath);
-//       var _allPathArr = _allPath.split("?");
-//       return {
-//         path: _allPathArr[0] ? _allPathArr[0] : "/",
-//         query: this.getSearchKey((_allPathArr[1] || "")),
-//         full: _allPath
-//       };
-//     },
-//     getSearchKey: function (argStr) {
-//       var argObj = {},
-//         item = null,
-//         value = null,
-//         key = null,
-//         argArr = argStr.length > 0 ? argStr.split("&") : [];
-//       for (var i = 0, len = argArr.length; i < len; i++) {
-//         item = argArr[i].split("=");
-//         key = item[0];
-//         value = item[1];
-//         argObj[key] = value;
-//       }
-//       return argObj
-//     },
-//     taggleFrame($wrap, path,_id) {
-//       //过滤search参数
-//       var _path = this.routerQuery(path);
-//       var _target = $wrap.find("div[data-ifr-id='" + _id + "']");
-//       $wrap.children(".tab-pane").removeClass("active");
-//       if (_target.length > 0) {
-//         _target.toggleClass("active")
-//       } else {
-//         //初始化创建
-//         this.creatFrame($wrap, _path.full, _id)
-
-//       }
-//     },
-//     creatFrame: function ($wrap, path,id) {
-//       var _str = '<div class="tab-pane active" data-ifr-id="' + id + '">';
-//       _str += '<iframe  src="' + path + '" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling-x="no" scrolling-y="auto" allowtransparency="yes"></iframe>'
-//       _str += '</div>';
-//       $wrap.append(_str)
-//     }
-//   }
-//   //初始化操作
-//   // _router.init($("#app-main-content"), $treeviewMenu);
-// })();
-
 //页面主逻辑
-$(function(){
+$(function () {
 
   //点击左侧菜单
   $(document).on('click', '.sidebar-menu li a', function (e) {
     var _href = $(this).attr("href");
-    if(!(_href.match(/^http/g) || _href.match(/^\/\//g))){
+    if (!(_href.match(/^http/g) || _href.match(/^\/\//g))) {
       e.preventDefault();
-      var _id=$(this).attr("data-nav-id");
+      var _id = $(this).attr("data-nav-id");
       if (_id && _href !== "#" && !((/^javascript:/g).test(_href))) {
-        window.location.hash = _href.indexOf("?")>-1?(_href+"&reftab="+_id):(_href+"?reftab="+_id);
+        window.location.hash = _href.indexOf("?") > -1 ? (_href + "&reftab=" + _id) : (_href + "?reftab=" + _id);
       }
     };
   });
@@ -452,24 +289,28 @@ $(function(){
   $(document).on('click', "[data-toggle='fullscreen']", function () {
     var doc = document.documentElement;
     if ($(document.body).hasClass("full-screen")) {
-        $(document.body).removeClass("full-screen");
-        document.exitFullscreen ? document.exitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen();
+      $(document.body).removeClass("full-screen");
+      document.exitFullscreen ? document.exitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen();
     } else {
-        $(document.body).addClass("full-screen");
-        doc.requestFullscreen ? doc.requestFullscreen() : doc.mozRequestFullScreen ? doc.mozRequestFullScreen() : doc.webkitRequestFullscreen ? doc.webkitRequestFullscreen() : doc.msRequestFullscreen && doc.msRequestFullscreen();
+      $(document.body).addClass("full-screen");
+      doc.requestFullscreen ? doc.requestFullscreen() : doc.mozRequestFullScreen ? doc.mozRequestFullScreen() : doc.webkitRequestFullscreen ? doc.webkitRequestFullscreen() : doc.msRequestFullscreen && doc.msRequestFullscreen();
     }
-});
- //退出事件
- $(document).on('click', "[data-toggle='logOut']", function () {
-  layer.confirm('确认退出？', {
-    btn: ['确定','取消'] //按钮
-  }, function(){
-    //做你想做的操作
-    window.location.href="//"+window.location.host;
-  }); 
-});
+  });
+  //退出事件
+  $(document).on('click', "[data-toggle='logOut']", function () {
+    layer.confirm('确认退出？', {
+      btn: ['确定', '取消'] //按钮
+    }, function () {
+      //做你想做的操作
+      window.location.href = "//" + window.location.host;
+    });
+  });
   //顶部和路由初始化
   // $("#app-main-content").css("height",$(window).height()-$(".main-header").height()+"px")
-  $(".nav-addtabs").addtabs({iframeWrap:$("#app-main-content")});
-  _$router._init({sideBar:$('.sidebar-menu').eq(0)});
+  $(".nav-addtabs").addtabs({
+    iframeWrap: $("#app-main-content")
+  });
+  _$router._init({
+    sideBar: $('.sidebar-menu').eq(0)
+  });
 });
