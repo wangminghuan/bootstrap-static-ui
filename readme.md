@@ -3,6 +3,10 @@
 ### 项目结构
 
 ### 前端路由
+页面左侧菜单栏每一条可点击项目的dom结构如下：
+
+	<li class=""><a href="/admin/category" data-nav-id="3"><i class="fa fa-list fa-fw"></i><span>分类管理</span><span class="pull-right-container"></span></a></li>
+其中，href与data-nav-id 是必须的，data-nav-id可以随意定义，但要保证唯一性。系统会根据此id作为前端唯一标识，从而渲染出来对应的左侧菜单，顶部导航，中间iframe页面的内容，且实现了三者的互相关联性；url中出现的`#/admin/general/config?reftab=6`无须关注，为前端hash路由，不要进行手动干扰修改，url中需要传递的参数依旧可以通过search部分进行传递。
 
 ### 页面图标样式
 页面已经引入fontawesome字体图标库，可访问[fontawesome字体图标库](http://fontawesome.dashgame.com/)添加或修改图标样式
@@ -38,7 +42,7 @@
 	data-page-index：当前第几页
 
 ### 表单
-表单均采用form方式进行提交，选用html现有表单标签即可。
+表单类全部均采用form方式进行提交，选用html现有表单标签即可。如需改为ajax无刷新提交，请@王明欢进行协助修改。
 
 下面重点介绍下表单校验部分：  
 
