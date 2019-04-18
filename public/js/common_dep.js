@@ -60,5 +60,337 @@ var overlay=$('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></d
 toastr.options={closeButton:!0,debug:!1,newestOnTop:!0,progressBar:!1,positionClass:"toast-top-right",preventDuplicates:!0,onclick:null,showDuration:"100",hideDuration:"1000",timeOut:"2000",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},layer.success=function(t){toastr.success(t,"")},layer.error=function(t){toastr.error(t,"")},layer.info=function(t){toastr.info(t,"")};
 
 //页面初始化后的一些主逻辑
-$(function(){$(".drag-wrap").dragsort({dragSelector:".btn-dragsort",dragBetween:false,placeHolderTemplate:""});$(document).on("click","[data-toggle='operate-table']",function(e){var _type=$(this).attr("data-button-type");var _parentTable=$(this).attr("data-table-id");var ajaxUrl=$(this).attr("data-url");var _key=$(this).attr("data-row-index");switch(_type){case"edit":e.preventDefault();e.stopPropagation();layer.open({type:2,title:"编辑",area:["800px","600px"],fixed:false,maxmin:true,content:ajaxUrl});break;case"del":e.preventDefault();e.stopPropagation();layer.confirm("确定删除？",{btn:["确定","取消"]},function(index){layer.close(index);var target=null;if($("#"+_parentTable).find("a[data-row-index='"+_key+"']").parents("tr").length>0){target=$("#"+_parentTable).find("[data-row-index='"+_key+"']").parents("tr")}else{if($("#"+_parentTable).find("[data-row-index='"+_key+"']").parents("dd").length>0){target=$("#"+_parentTable).find("[data-row-index='"+_key+"']").parents("dd")}}if(!target){return}if(!ajaxUrl){target.eq(0).remove();layer.success("删除成功");return}$.ajax({url:ajaxUrl,success:function(){layer.success("删除成功");target.eq(0).remove();if($("#"+_parentTable+" tbody tr").length==0){window.location.reload()}},error:function(){layer.error("删除失败")}})});break;case"add":e.preventDefault();e.stopPropagation();layer.open({type:2,title:"添加",area:["800px","600px"],fixed:false,maxmin:true,content:ajaxUrl});break;case"refresh":window.location.reload();break;case"check":if($(this).is(".table-check-one")){var allChecked=true;var $check=$(this).find("input[type='checkbox']");if(!($(e.target).attr("type")=="checkbox")){$check.trigger("click")}$("#"+_parentTable+" .table-check-one input[type='checkbox']").each(function(){if(!($(this).prop("checked"))){allChecked=false}});if(allChecked){$("#"+_parentTable+" .table-check-all").prop("checked",true)}else{$("#"+_parentTable+" .table-check-all").prop("checked",false)}}else{if($(this).is(".table-check-all")){$("#"+_parentTable+" .table-check-one input[type='checkbox']").prop("checked",$(this).prop("checked"))}}break;case"multi-del":case"multi-show":case"multi-hide":e.preventDefault();e.stopPropagation();var _data=[];$("#"+_parentTable+" .table-check-one input[type='checkbox']").each(function(){if(($(this).prop("checked"))){_data.push($(this).attr("data-value"))}});if(_data.length==0){layer.error("请选勾选项目");return}layer.confirm("确定"+(_type=="multi-del"?"删除":_type=="multi-hide"?"隐藏":_type=="multi-show"?"显示":"")+"选定内容？",{btn:["确定","取消"]},function(index){layer.close(index);$.ajax({url:ajaxUrl,data:{_id:_data.join(","),},success:function(){layer.success("操作成功");window.location.reload()},error:function(){layer.error("操作失败")}})});break;case"search":var $this=$(this);$this.unbind("keypress").on("keypress",function(event){if(event.keyCode=="13"){window.location.replace(ajaxUrl+(ajaxUrl.indexOf("?")==-1?"?":"&")+"key="+$this.val())}});break;case"filter":$(this).parents(".common-table").children(".commonsearch-table").toggleClass("hide");break;case"detail":e.preventDefault();e.stopPropagation();layer.open({type:2,title:"详情",area:["800px","600px"],fixed:false,maxmin:true,content:ajaxUrl});break;case"page-size":e.preventDefault();e.stopPropagation();window.location.replace(ajaxUrl);break;case"page-change":e.preventDefault();e.stopPropagation();if(ajaxUrl&&ajaxUrl=="disable"){return}else{if(!ajaxUrl){layer.msg("没有更多了")}else{if(window.location.href===(window.location.protocol+"//"+window.location.host)+ajaxUrl){return}window.location.replace(ajaxUrl)}}break;case"add-new":var _str=$("#"+_parentTable).children().eq(0).clone(true);$("#"+_parentTable).append(_str);break;case"upload-files":var $fileInput=$(this).find("input[type='file']");$fileInput.unbind("change").bind("change",function(e){if(!$fileInput[0].value){layer.error("未选择任何文件");return}var file=$fileInput[0].files[0];var size=file.size;var fd=new FormData();fd.append("file",file);$.ajax({method:"POST",url:ajaxUrl,data:fd,processData:false,mimeType:"multipart/form-data",success:function(){layer.success("上传成功");window.location.reload()},error:function(){layer.error("上传失败")}})});break}});$(document).on("click","[data-toggle='operate-iframe-pop']",function(e){var _type=$(this).attr("data-button-type");var index=parent.layer.getFrameIndex(window.name);switch(_type){case"submit":break;case"reset":layer.alert("重置成功",{icon:6});break;case"close":e.preventDefault();parent.layer.close(index);break}});$("[data-toggle='table-pagination']").each(function(){function getUrlArgs(){var argStr=window.location.search?window.location.search.substring(1):"";var argObj={},item=null,value=null,key=null,argArr=argStr.length>0?argStr.split("&"):[];for(var i=0,len=argArr.length;i<len;i++){item=argArr[i].split("=");key=item[0];value=item[1];argObj[key]=value}return argObj}var pageTotal=parseInt($(this).attr("data-page-total")||0);var jumpUrl=$(this).attr("data-url");var pageIndex=parseInt(getUrlArgs().page||1);var pageSize=parseInt(getUrlArgs().pagesize||10);var pageNumer=(pageTotal%pageSize)==0?parseInt(pageTotal/pageSize):(parseInt(pageTotal/pageSize)+1);
-var pageList=[10,25,50],listStr="",pageNumberStr="",pageArr=[];for(var _k=0;_k<pageList.length;_k++){listStr+='<li role="menuitem" class="'+(pageList[_k]==pageSize?"active":"")+'"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-size"  data-url="'+jumpUrl+("?")+"pagesize="+pageList[_k]+"&page=1"+'">'+pageList[_k]+"</a></li>"}if(pageNumer<=8){for(var _i=0;_i<pageNumer;_i++){pageArr.push(_i+1)}}else{if(pageNumer>8){if(pageIndex<=4){pageArr=[1,2,3,4,5,"...",pageNumer]}else{if(pageIndex>pageNumer-4){pageArr=[1,"...",pageNumer-4,pageNumer-3,pageNumer-2,pageNumer-1,pageNumer]}else{pageArr=[1,"...",pageIndex-1,pageIndex,pageIndex+1,"...",pageNumer]}}}}for(var _m=0;_m<pageArr.length;_m++){var isDot=pageArr[_m]=="...";pageNumberStr+='<li class="page-number '+(pageArr[_m]==pageIndex?"active":"")+'" data-toggle="operate-table" data-button-type="page-size"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-change" data-url="'+(isDot?"disable":(jumpUrl+"?pagesize="+pageSize+"&page="+pageArr[_m]))+'">'+pageArr[_m]+"</a></li>"}var lfStr='<div class="pull-left pagination-detail">';lfStr+='<span class="pagination-info">显示第 '+((pageIndex-1)*pageSize+1)+" 到第 "+(pageIndex==pageNumer?pageTotal:(pageIndex)*pageSize)+" 条记录，总共"+pageTotal+" 条记录</span>";lfStr+='<span class="page-list">每页显示 <span class="btn-group dropup"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="page-size">'+pageSize+'</span><span class="caret"></span></button><ul class="dropdown-menu" role="menu">'+listStr+"</ul></span>条记录</span></div>";var rtStr='<div class="pull-right pagination"><ul class="pagination"><li class="page-pre"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-change" data-page="pre" data-url="'+(pageIndex-1>0?(jumpUrl+"?pagesize="+pageSize+"&page="+(pageIndex-1)):"")+'">上一页</a></li>'+pageNumberStr+'<li class="page-next"><a href="javascript:;" data-toggle="operate-table"  data-button-type="page-change" data-page="next" data-url="'+(pageNumer>=pageIndex+1?(jumpUrl+"?pagesize="+pageSize+"&page="+(pageIndex+1)):"")+'">下一页</a></li></ul></div>';$(this).append(lfStr+(pageNumer>1?rtStr:""))});$(".validator-form").validator({validClass:"has-success",invalidClass:"has-error",bindClassTo:".form-group",formClass:"n-default n-bootstrap",msgClass:"n-right",stopOnError:true,display:function(elem){return $(elem).closest(".form-group").find(".control-label").text().replace(/\:/,"")},dataFilter:function(data){if(data.code===1){return""}else{return data.msg}},target:function(input){var target=$(input).data("target");if(target&&$(target).size()>0){return $(target)}var $formitem=$(input).closest(".form-group"),$msgbox=$formitem.find("span.msg-box");if(!$msgbox.length){return[]}return $msgbox}})});
+$(function () {
+  //拖拽初始化
+  $(".drag-wrap").dragsort({
+    dragSelector: ".btn-dragsort",
+    dragBetween: false,
+    placeHolderTemplate: ""
+  });
+  //表格相关操作
+  $(document).on("click", "[data-toggle='operate-table']", function (e) {
+    var _type = $(this).attr("data-button-type");
+    var _parentTable = $(this).attr("data-table-id");
+    var ajaxUrl = $(this).attr("data-url");
+    var _key = $(this).attr("data-row-index");
+    switch (_type) {
+      //编辑，弹窗iframe框
+      case "edit":
+        e.preventDefault();
+        e.stopPropagation();
+        layer.open({
+          type: 2,
+          title: "编辑",
+          area: ["800px", "600px"],
+          fixed: false,
+          maxmin: true,
+          content: ajaxUrl
+        });
+        break;
+      //删除
+      case "del":
+        e.preventDefault();
+        e.stopPropagation();
+        layer.confirm("确定删除？", {
+          btn: ["确定", "取消"]
+        }, function (index) {
+          layer.close(index);
+          var target = null;
+          if ($("#" + _parentTable).find("a[data-row-index='" + _key + "']").parents("tr").length > 0) {
+            target = $("#" + _parentTable).find("[data-row-index='" + _key + "']").parents("tr")
+          } else {
+            if ($("#" + _parentTable).find("[data-row-index='" + _key + "']").parents("dd").length > 0) {
+              target = $("#" + _parentTable).find("[data-row-index='" + _key + "']").parents("dd")
+            }
+          }
+          if (!target) {
+            return
+          }
+          if (!ajaxUrl) {
+            target.eq(0).remove();
+            layer.success("删除成功");
+            return
+          }
+          $.ajax({
+            url: ajaxUrl,
+            success: function () {
+              layer.success("删除成功");
+              target.eq(0).remove();
+              if ($("#" + _parentTable + " tbody tr").length == 0) {
+                window.location.reload()
+              }
+            },
+            error: function () {
+              layer.error("删除失败")
+            }
+          })
+        });
+        break;
+      //新增
+      case "add":
+        e.preventDefault();
+        e.stopPropagation();
+        layer.open({
+          type: 2,
+          title: "添加",
+          area: ["800px", "600px"],
+          fixed: false,
+          maxmin: true,
+          content: ajaxUrl
+        });
+        break;
+      //刷新
+      case "refresh":
+        window.location.reload();
+        break;
+      //多选和全选
+      case "check":
+        if ($(this).is(".table-check-one")) {
+          var allChecked = true;
+          var $check = $(this).find("input[type='checkbox']");
+          if (!($(e.target).attr("type") == "checkbox")) {
+            $check.trigger("click")
+          }
+          $("#" + _parentTable + " .table-check-one input[type='checkbox']").each(function () {
+            if (!($(this).prop("checked"))) {
+              allChecked = false
+            }
+          });
+          if (allChecked) {
+            $("#" + _parentTable + " .table-check-all").prop("checked", true)
+          } else {
+            $("#" + _parentTable + " .table-check-all").prop("checked", false)
+          }
+        } else {
+          if ($(this).is(".table-check-all")) {
+            $("#" + _parentTable + " .table-check-one input[type='checkbox']").prop("checked", $(this).prop("checked"))
+          }
+        }
+        break;
+      //批量删除和 批量显示，批量隐藏等
+      case "multi-del":
+      case "multi-show":
+      case "multi-hide":
+        e.preventDefault();
+        e.stopPropagation();
+        var _data = [];
+        $("#" + _parentTable + " .table-check-one input[type='checkbox']").each(function () {
+          if (($(this).prop("checked"))) {
+            _data.push($(this).parents("[data-button-type='check']").attr("data-value"))
+          }
+        });
+        if (_data.length == 0) {
+          layer.error("请选勾选项目");
+          return
+        }
+        layer.confirm("确定" + (_type == "multi-del" ? "删除" : _type == "multi-hide" ? "隐藏" : _type == "multi-show" ? "显示" : "") + "选定内容？", {
+          btn: ["确定", "取消"]
+        }, function (index) {
+          layer.close(index);
+          console.log(_data);
+          $.ajax({
+            url: ajaxUrl,
+            method:"POST",
+            data: {
+              _id: _data.join(","),
+            },
+            success: function () {
+              layer.success("操作成功");
+              window.location.reload()
+            },
+            error: function () {
+              layer.error("操作失败")
+            }
+          })
+        });
+        break;
+      //搜索逻辑，回车提交form
+      case "search":
+        var $this = $(this);
+        $this.unbind("keypress").on("keypress", function (event) {
+          if (event.keyCode == "13") {
+            window.location.replace(ajaxUrl + (ajaxUrl.indexOf("?") == -1 ? "?" : "&") + "key=" + $this.val())
+          }
+        });
+        break;
+      //筛选项的开启和隐藏
+      case "filter":
+        $(this).parents(".common-table").children(".commonsearch-table").toggleClass("hide");
+        break;
+      //详情按钮
+      case "detail":
+        e.preventDefault();
+        e.stopPropagation();
+        layer.open({
+          type: 2,
+          title: "详情",
+          area: ["800px", "600px"],
+          fixed: false,
+          maxmin: true,
+          content: ajaxUrl
+        });
+        break;
+      //翻页，
+      case "page-size":
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.replace(ajaxUrl);
+        break;
+      //页码改变
+      case "page-change":
+        e.preventDefault();
+        e.stopPropagation();
+        if (ajaxUrl && ajaxUrl == "disable") {
+          return
+        } else {
+          if (!ajaxUrl) {
+            layer.msg("没有更多了")
+          } else {
+            if (window.location.href === (window.location.protocol + "//" + window.location.host) + ajaxUrl) {
+              return
+            }
+            window.location.replace(ajaxUrl)
+          }
+        }
+        break;
+      //追加
+      case "add-new":
+        var _str = $("#" + _parentTable).children().eq(0).clone(true);
+        $("#" + _parentTable).append(_str);
+        break;
+      //上传文件，
+      case "upload-files":
+        var $fileInput = $(this).find("input[type='file']");
+        $fileInput.unbind("change").bind("change", function (e) {
+          if (!$fileInput[0].value) {
+            layer.error("未选择任何文件");
+            return
+          }
+          var file = $fileInput[0].files[0];
+          var size = file.size;
+          var fd = new FormData();
+          fd.append("file", file);
+          $.ajax({
+            method: "POST",
+            url: ajaxUrl,
+            data: fd,
+            processData: false,
+            mimeType: "multipart/form-data",
+            success: function () {
+              layer.success("上传成功");
+              window.location.reload()
+            },
+            error: function () {
+              layer.error("上传失败")
+            }
+          })
+        });
+        break
+    }
+  });
+  //iframe内页面的提交，重置，关闭等按钮
+  $(document).on("click", "[data-toggle='operate-iframe-pop']", function (e) {
+    var _type = $(this).attr("data-button-type");
+    var index = parent.layer.getFrameIndex(window.name);
+    switch (_type) {
+      case "submit":
+        break;
+      case "reset":
+        layer.alert("重置成功", {
+          icon: 6
+        });
+        break;
+      case "close":
+        e.preventDefault();
+        parent.layer.close(index);
+        break
+    }
+  });
+  //分页组件初始化
+  $("[data-toggle='table-pagination']").each(function () {
+    function getUrlArgs() {
+      var argStr = window.location.search ? window.location.search.substring(1) : "";
+      var argObj = {},
+        item = null,
+        value = null,
+        key = null,
+        argArr = argStr.length > 0 ? argStr.split("&") : [];
+      for (var i = 0, len = argArr.length; i < len; i++) {
+        item = argArr[i].split("=");
+        key = item[0];
+        value = item[1];
+        argObj[key] = value
+      }
+      return argObj
+    }
+    var pageTotal = parseInt($(this).attr("data-page-total") || 0);
+    var jumpUrl = $(this).attr("data-url");
+    var pageIndex = parseInt(getUrlArgs().page || 1);
+    var pageSize = parseInt(getUrlArgs().pagesize || 10);
+    var pageNumer = (pageTotal % pageSize) == 0 ? parseInt(pageTotal / pageSize) : (parseInt(pageTotal / pageSize) + 1);
+    var pageList = [10, 25, 50],
+      listStr = "",
+      pageNumberStr = "",
+      pageArr = [];
+    for (var _k = 0; _k < pageList.length; _k++) {
+      listStr += '<li role="menuitem" class="' + (pageList[_k] == pageSize ? "active" : "") + '"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-size"  data-url="' + jumpUrl + ("?") + "pagesize=" + pageList[_k] + "&page=1" + '">' + pageList[_k] + "</a></li>"
+    }
+    if (pageNumer <= 8) {
+      for (var _i = 0; _i < pageNumer; _i++) {
+        pageArr.push(_i + 1)
+      }
+    } else {
+      if (pageNumer > 8) {
+        if (pageIndex <= 4) {
+          pageArr = [1, 2, 3, 4, 5, "...", pageNumer]
+        } else {
+          if (pageIndex > pageNumer - 4) {
+            pageArr = [1, "...", pageNumer - 4, pageNumer - 3, pageNumer - 2, pageNumer - 1, pageNumer]
+          } else {
+            pageArr = [1, "...", pageIndex - 1, pageIndex, pageIndex + 1, "...", pageNumer]
+          }
+        }
+      }
+    }
+    for (var _m = 0; _m < pageArr.length; _m++) {
+      var isDot = pageArr[_m] == "...";
+      pageNumberStr += '<li class="page-number ' + (pageArr[_m] == pageIndex ? "active" : "") + '" data-toggle="operate-table" data-button-type="page-size"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-change" data-url="' + (isDot ? "disable" : (jumpUrl + "?pagesize=" + pageSize + "&page=" + pageArr[_m])) + '">' + pageArr[_m] + "</a></li>"
+    }
+    var lfStr = '<div class="pull-left pagination-detail">';
+    lfStr += '<span class="pagination-info">显示第 ' + ((pageIndex - 1) * pageSize + 1) + " 到第 " + (pageIndex == pageNumer ? pageTotal : (pageIndex) * pageSize) + " 条记录，总共" + pageTotal + " 条记录</span>";
+    lfStr += '<span class="page-list">每页显示 <span class="btn-group dropup"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="page-size">' + pageSize + '</span><span class="caret"></span></button><ul class="dropdown-menu" role="menu">' + listStr + "</ul></span>条记录</span></div>";
+    var rtStr = '<div class="pull-right pagination"><ul class="pagination"><li class="page-pre"><a href="javascript:;" data-toggle="operate-table" data-button-type="page-change" data-page="pre" data-url="' + (pageIndex - 1 > 0 ? (jumpUrl + "?pagesize=" + pageSize + "&page=" + (pageIndex - 1)) : "") + '">上一页</a></li>' + pageNumberStr + '<li class="page-next"><a href="javascript:;" data-toggle="operate-table"  data-button-type="page-change" data-page="next" data-url="' + (pageNumer >= pageIndex + 1 ? (jumpUrl + "?pagesize=" + pageSize + "&page=" + (pageIndex + 1)) : "") + '">下一页</a></li></ul></div>';
+    $(this).append(lfStr + (pageNumer > 1 ? rtStr : ""))
+  });
+  //表格校验初始化
+  $(".validator-form").validator({
+    validClass: "has-success",
+    invalidClass: "has-error",
+    bindClassTo: ".form-group",
+    formClass: "n-default n-bootstrap",
+    msgClass: "n-right",
+    stopOnError: true,
+    display: function (elem) {
+      return $(elem).closest(".form-group").find(".control-label").text().replace(/\:/, "")
+    },
+    dataFilter: function (data) {
+      if (data.code === 1) {
+        return ""
+      } else {
+        return data.msg
+      }
+    },
+    target: function (input) {
+      var target = $(input).data("target");
+      if (target && $(target).size() > 0) {
+        return $(target)
+      }
+      var $formitem = $(input).closest(".form-group"),
+        $msgbox = $formitem.find("span.msg-box");
+      if (!$msgbox.length) {
+        return []
+      }
+      return $msgbox
+    }
+  })
+});
