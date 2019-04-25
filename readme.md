@@ -59,6 +59,8 @@
     
 	yarn start
 
+  运行浏览器访问：http://localhost:3002/
+
 ### 3. 界面交互设计
 
 ![](http://1.z9ls.com/t6/701/1555559971x2890171474.png)、

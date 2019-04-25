@@ -297,12 +297,23 @@ $(function () {
     }
   });
   //退出事件
-  $(document).on('click', "[data-toggle='logOut']", function () {
+  $(document).on('click', "[data-toggle='logOut']", function (e) {
     layer.confirm('确认退出？', {
       btn: ['确定', '取消'] //按钮
     }, function () {
       //做你想做的操作
       window.location.href = "//" + window.location.host;
+    });
+  });
+  //个人配置
+  $(document).on('click', "[data-toggle='userConfig']", function (e) {
+    layer.open({
+      type: 2,
+      title: "个人配置",
+      area: ["800px", "600px"],
+      fixed: false,
+      maxmin: true,
+      content: $(this).attr("data-url")
     });
   });
   //顶部和路由初始化
